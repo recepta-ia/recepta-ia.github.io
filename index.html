@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recepta IA | Secretária Inteligente para Consultórios e Clínicas</title>
+    <meta name="description" content="A Secretária com Inteligência Artificial para Consultórios Médicos e Odontológicos. Atendimento 24h no WhatsApp e agendamento sincronizado com Google Calendar.">
+    
+    <!-- Favicon SVG -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩺</text></svg>">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981', // Verde Esmeralda Principal
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                            950: '#022c22'
+                        },
+                        dark: {
+                            base: '#080c14',
+                            surface: '#0f172a',
+                            card: '#131e33',
+                            border: 'rgba(255, 255, 255, 0.08)'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #080c14;
+            color: #f1f5f9;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* Glassmorphism */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+
+        .glass-panel-subtle {
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* Glow effects */
+        .glow-emerald {
+            box-shadow: 0 0 50px -10px rgba(16, 185, 129, 0.25);
+        }
+
+        .glow-emerald-sm {
+            box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080c14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #10b981;
+        }
+    </style>
+</head>
+<body class="selection:bg-brand-500 selection:text-white">
+
+    <!-- Ambient Background Light Effects -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[450px] bg-brand-500/10 blur-[140px] rounded-full"></div>
+        <div class="absolute top-[35%] -left-32 w-[500px] h-[500px] bg-emerald-600/5 blur-[160px] rounded-full"></div>
+        <div class="absolute top-[65%] -right-32 w-[600px] h-[600px] bg-teal-500/5 blur-[160px] rounded-full"></div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-brand-500/10 backdrop-blur-xl transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center text-white shadow-lg shadow-brand-500/20 group-hover:scale-105 transition-transform duration-200">
+                    <i class="fa-solid fa-headset text-lg"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl font-bold font-heading tracking-tight text-white flex items-center gap-1.5">
+                        Recepta <span class="text-xs px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-400 font-semibold border border-brand-500/20">IA</span>
+                    </span>
+                    <span class="text-[10px] text-slate-400 tracking-wider uppercase font-medium">Saúde Inteligente</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+                <a href="#inicio" class="hover:text-brand-400 transition-colors">Início</a>
+                <a href="#funcionalidades" class="hover:text-brand-400 transition-colors">Funcionalidades</a>
+                <a href="#seguranca" class="hover:text-brand-400 transition-colors">Segurança</a>
+                <a href="#privacidade" class="hover:text-brand-400 transition-colors">Política de Privacidade</a>
+                <a href="#termos" class="hover:text-brand-400 transition-colors">Termos de Serviço</a>
+            </nav>
+
+            <!-- CTA Button -->
+            <div class="hidden md:flex items-center gap-4">
+                <a href="http://184.72.190.108:8000" target="_blank" rel="noopener noreferrer" 
+                   class="relative inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-slate-950 bg-gradient-to-r from-brand-400 to-emerald-400 rounded-xl hover:from-brand-300 hover:to-emerald-300 shadow-md shadow-brand-500/25 hover:shadow-brand-500/40 transition-all duration-200 hover:-translate-y-0.5">
+                    <span>Acessar Plataforma</span>
+                    <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobileMenuBtn" class="md:hidden text-slate-300 hover:text-white p-2 rounded-lg focus:outline-none" aria-label="Abrir Menu">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobileMenu" class="hidden md:hidden glass-panel border-t border-slate-800 px-6 py-5 flex flex-col gap-4 text-sm font-medium">
+            <a href="#inicio" class="text-slate-300 hover:text-brand-400 py-1" onclick="toggleMobileMenu()">Início</a>
+            <a href="#funcionalidades" class="text-slate-300 hover:text-brand-400 py-1" onclick="toggleMobileMenu()">Funcionalidades</a>
+            <a href="#seguranca" class="text-slate-300 hover:text-brand-400 py-1" onclick="toggleMobileMenu()">Segurança</a>
+            <a href="#privacidade" class="text-slate-300 hover:text-brand-400 py-1" onclick="toggleMobileMenu()">Política de Privacidade</a>
+            <a href="#termos" class="text-slate-300 hover:text-brand-400 py-1" onclick="toggleMobileMenu()">Termos de Serviço</a>
+            <a href="http://184.72.190.108:8000" target="_blank" rel="noopener noreferrer" 
+               class="mt-2 w-full text-center py-2.5 px-4 text-slate-950 font-bold bg-brand-400 rounded-xl hover:bg-brand-300 transition-colors">
+                Acessar Plataforma
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative z-10 pt-28">
+
+        <!-- HERO SECTION -->
+        <section id="inicio" class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24 lg:pt-24 lg:pb-32">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                
+                <!-- Left Column: Copy & CTAs -->
+                <div class="lg:col-span-7 flex flex-col items-start text-left">
+                    
+                    <!-- Top Badge -->
+                    <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-300 border border-brand-500/25 mb-6 backdrop-blur-md">
+                        <span class="flex h-2 w-2 relative">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
+                        </span>
+                        <span>Inteligência Artificial Especializada para Consultórios Médicos & Odonto</span>
+                    </div>
+
+                    <!-- Headline -->
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white font-heading tracking-tight leading-[1.15] mb-6">
+                        A Secretária com <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-emerald-300 to-teal-200">Inteligência Artificial</span> que sua clínica merece.
+                    </h1>
+
+                    <!-- Subtitle -->
+                    <p class="text-lg sm:text-xl text-slate-300 font-normal leading-relaxed mb-8 max-w-2xl">
+                        Atendimento humanizado 24h por dia no WhatsApp oficial da sua clínica. Agendamento em tempo real sincronizado de forma segura com o <strong class="text-white font-semibold">Google Calendar</strong> e redução de até 85% no no-show.
+                    </p>
+
+                    <!-- CTAs -->
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto mb-10">
+                        <a href="http://184.72.190.108:8000" target="_blank" rel="noopener noreferrer" 
+                           class="inline-flex items-center justify-center px-7 py-3.5 text-base font-bold text-slate-950 bg-gradient-to-r from-brand-400 to-emerald-400 rounded-xl hover:from-brand-300 hover:to-emerald-300 shadow-xl shadow-brand-500/20 hover:shadow-brand-500/35 transition-all duration-200 hover:-translate-y-0.5 text-center">
+                            <i class="fa-solid fa-rocket mr-2.5"></i>
+                            <span>Acessar Plataforma</span>
+                        </a>
+                        <a href="#privacidade" 
+                           class="inline-flex items-center justify-center px-6 py-3.5 text-base font-semibold text-slate-300 bg-slate-900/60 hover:bg-slate-800/80 rounded-xl border border-slate-700/60 hover:border-brand-500/40 transition-all duration-200 text-center">
+                            <i class="fa-solid fa-shield-halved mr-2 text-brand-400"></i>
+                            <span>Privacidade & Google API</span>
+                        </a>
+                    </div>
+
+                    <!-- Trust Badges -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full pt-4 border-t border-slate-800/80 text-xs text-slate-400">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-brand-400 text-base"></i>
+                            <span>WhatsApp Oficial</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-regular fa-calendar-check text-brand-400 text-base"></i>
+                            <span>Google Calendar 24/7</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-lock text-brand-400 text-base"></i>
+                            <span>Conforme a LGPD</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-bolt text-brand-400 text-base"></i>
+                            <span>Resposta Instantânea</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive UI Showcase Mockup -->
+                <div class="lg:col-span-5 relative">
+                    <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-brand-500/30 to-teal-500/20 blur-xl opacity-75"></div>
+                    
+                    <!-- WhatsApp Simulator Card -->
+                    <div class="relative glass-panel rounded-2xl p-4 sm:p-5 shadow-2xl border border-brand-500/20">
+                        <!-- Chat Header -->
+                        <div class="flex items-center justify-between pb-3.5 mb-4 border-b border-slate-800">
+                            <div class="flex items-center gap-3">
+                                <div class="relative">
+                                    <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center text-white text-lg font-bold shadow-md">
+                                        <i class="fa-solid fa-user-doctor"></i>
+                                    </div>
+                                    <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 border-2 border-slate-900 rounded-full"></span>
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-1.5">
+                                        <h4 class="text-sm font-bold text-white">Clínica Dr. Silva</h4>
+                                        <i class="fa-solid fa-circle-check text-brand-400 text-xs" title="Verificado"></i>
+                                    </div>
+                                    <p class="text-[11px] text-brand-400 font-medium flex items-center gap-1">
+                                        <i class="fa-solid fa-robot text-[10px]"></i> Recepta IA • Atendimento Oficial
+                                    </p>
+                                </div>
+                            </div>
+                            <span class="text-[11px] px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700">Online</span>
+                        </div>
+
+                        <!-- Chat Messages Container -->
+                        <div class="space-y-3.5 text-xs sm:text-sm">
+                            <!-- Patient message -->
+                            <div class="flex items-end justify-end">
+                                <div class="bg-emerald-950/70 text-emerald-100 rounded-2xl rounded-tr-sm px-3.5 py-2.5 max-w-[85%] border border-emerald-800/40 shadow-sm">
+                                    <p>Boa tarde! Gostaria de agendar uma consulta com a Dra. Mariana para esta quinta-feira à tarde.</p>
+                                    <span class="text-[10px] text-emerald-400/80 block text-right mt-1">14:28 <i class="fa-solid fa-check-double text-[9px]"></i></span>
+                                </div>
+                            </div>
+
+                            <!-- Recepta IA message -->
+                            <div class="flex items-start gap-2">
+                                <div class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center text-[10px] mt-1 shrink-0">
+                                    <i class="fa-solid fa-headset"></i>
+                                </div>
+                                <div class="bg-slate-800/90 text-slate-100 rounded-2xl rounded-tl-sm px-3.5 py-2.5 max-w-[88%] border border-slate-700 shadow-sm">
+                                    <p class="mb-1.5">Olá! É um prazer te atender. 😊</p>
+                                    <p class="mb-2">Verifiquei a agenda em tempo real no Google Calendar da Dra. Mariana. Para quinta-feira, temos estes horários:</p>
+                                    <div class="space-y-1 mb-2 font-medium">
+                                        <div class="flex items-center gap-2 p-1.5 rounded-lg bg-slate-900/80 text-brand-300 border border-brand-500/20">
+                                            <i class="fa-regular fa-clock text-xs"></i> Opção 1: <strong>14:30</strong>
+                                        </div>
+                                        <div class="flex items-center gap-2 p-1.5 rounded-lg bg-slate-900/80 text-brand-300 border border-brand-500/20">
+                                            <i class="fa-regular fa-clock text-xs"></i> Opção 2: <strong>16:15</strong>
+                                        </div>
+                                    </div>
+                                    <p class="text-slate-300">Qual desses horários é melhor para você?</p>
+                                    <span class="text-[10px] text-slate-400 block text-right mt-1">14:28</span>
+                                </div>
+                            </div>
+
+                            <!-- Patient choice -->
+                            <div class="flex items-end justify-end">
+                                <div class="bg-emerald-950/70 text-emerald-100 rounded-2xl rounded-tr-sm px-3.5 py-2.5 max-w-[85%] border border-emerald-800/40 shadow-sm">
+                                    <p>O horário das 16:15 fica perfeito!</p>
+                                    <span class="text-[10px] text-emerald-400/80 block text-right mt-1">14:29 <i class="fa-solid fa-check-double text-[9px]"></i></span>
+                                </div>
+                            </div>
+
+                            <!-- Recepta IA confirmation & sync -->
+                            <div class="flex items-start gap-2">
+                                <div class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center text-[10px] mt-1 shrink-0">
+                                    <i class="fa-solid fa-headset"></i>
+                                </div>
+                                <div class="bg-slate-800/90 text-slate-100 rounded-2xl rounded-tl-sm px-3.5 py-2.5 max-w-[90%] border border-brand-500/30 shadow-md">
+                                    <div class="flex items-center gap-1.5 text-brand-400 font-bold mb-1">
+                                        <i class="fa-solid fa-circle-check"></i> Consulta Agendada com Sucesso!
+                                    </div>
+                                    <p class="text-xs text-slate-300 mb-2">Quinta-feira às 16:15 com a <strong>Dra. Mariana</strong>.</p>
+                                    
+                                    <!-- Google Calendar Sync Badge -->
+                                    <div class="p-2 rounded-lg bg-slate-900/90 border border-slate-700 flex items-center justify-between text-[11px]">
+                                        <div class="flex items-center gap-2 text-slate-300">
+                                            <i class="fa-regular fa-calendar-plus text-brand-400 text-sm"></i>
+                                            <span>Sincronizado no Google Agenda</span>
+                                        </div>
+                                        <span class="text-brand-400 font-mono text-[10px]">Instantâneo</span>
+                                    </div>
+                                    <span class="text-[10px] text-slate-400 block text-right mt-1.5">14:29</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Footer -->
+                        <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
+                            <span><i class="fa-solid fa-shield-halved text-brand-400 mr-1"></i> Criptografia TLS 1.3</span>
+                            <span class="text-brand-400 font-medium">Tempo de resposta: 1.2s</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- VALUE PROPOSITION STATS -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                <div class="glass-panel-subtle rounded-2xl p-5 text-center">
+                    <span class="block text-3xl sm:text-4xl font-extrabold text-white font-heading text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-emerald-300">24/7</span>
+                    <span class="text-xs sm:text-sm text-slate-400 mt-1 block font-medium">Atendimento ininterrupto</span>
+                </div>
+                <div class="glass-panel-subtle rounded-2xl p-5 text-center">
+                    <span class="block text-3xl sm:text-4xl font-extrabold text-white font-heading text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-emerald-300">-85%</span>
+                    <span class="text-xs sm:text-sm text-slate-400 mt-1 block font-medium">Redução no No-Show</span>
+                </div>
+                <div class="glass-panel-subtle rounded-2xl p-5 text-center">
+                    <span class="block text-3xl sm:text-4xl font-extrabold text-white font-heading text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-emerald-300">0</span>
+                    <span class="text-xs sm:text-sm text-slate-400 mt-1 block font-medium">Conflitos de agenda</span>
+                </div>
+                <div class="glass-panel-subtle rounded-2xl p-5 text-center">
+                    <span class="block text-3xl sm:text-4xl font-extrabold text-white font-heading text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-emerald-300">100%</span>
+                    <span class="text-xs sm:text-sm text-slate-400 mt-1 block font-medium">Conformidade LGPD</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURES SECTION -->
+        <section id="funcionalidades" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs uppercase font-bold tracking-wider text-brand-400 bg-brand-500/10 px-3 py-1 rounded-full border border-brand-500/20">Recursos Exclusivos</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-heading tracking-tight mt-3 mb-4">
+                    Tudo o que sua recepção precisa para operar no piloto automático
+                </h2>
+                <p class="text-slate-400 text-base sm:text-lg">
+                    Desenvolvida com a tecnologia de IA mais refinada do mundo, calibrada para a rotina de consultórios médicos, odontológicos e clínicas multidisciplinares.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <!-- Card 1 -->
+                <div class="glass-panel rounded-2xl p-6 sm:p-8 hover:border-brand-500/40 transition-all duration-300 hover:-translate-y-1 group">
+                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-400 text-xl mb-6 group-hover:bg-brand-500 group-hover:text-slate-950 transition-colors duration-300">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white font-heading mb-2.5">Atendimento 24h Humanizado</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Esqueça menus numéricos e respostas robóticas. A Recepta responde como uma secretária sênior, acolhendo pacientes com cordialidade a qualquer hora do dia ou da noite.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-panel rounded-2xl p-6 sm:p-8 hover:border-brand-500/40 transition-all duration-300 hover:-translate-y-1 group">
+                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-400 text-xl mb-6 group-hover:bg-brand-500 group-hover:text-slate-950 transition-colors duration-300">
+                        <i class="fa-regular fa-calendar-check"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white font-heading mb-2.5">Agendamento em Tempo Real</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        A IA consulta instantaneamente a disponibilidade de horários, sugere as melhores opções, agenda, remarca ou cancela consultas sem nenhuma demora para o paciente.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-panel rounded-2xl p-6 sm:p-8 hover:border-brand-500/40 transition-all duration-300 hover:-translate-y-1 group">
+                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-400 text-xl mb-6 group-hover:bg-brand-500 group-hover:text-slate-950 transition-colors duration-300">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white font-heading mb-2.5">Sincronização Google Calendar</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Integração direta com a API oficial do Google Calendar. Se você alterar um compromisso na sua agenda física ou no smartphone, a IA reconhece o bloqueio imediatamente.
+                    </p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="glass-panel rounded-2xl p-6 sm:p-8 hover:border-brand-500/40 transition-all duration-300 hover:-translate-y-1 group">
+                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-400 text-xl mb-6 group-hover:bg-brand-500 group-hover:text-slate-950 transition-colors duration-300">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white font-heading mb-2.5">Transbordo Humano Inteligente</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Casos urgentes, pacientes que exigem falar com alguém da equipe ou dúvidas clínicas são identificados imediatamente e repassados para a secretária física sem atrito.
+                    </p>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="glass-panel rounded-2xl p-6 sm:p-8 hover:border-brand-500/40 transition-all duration-300 hover:-translate-y-1 group">
+                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-400 text-xl mb-6 group-hover:bg-brand-500 group-hover:text-slate-950 transition-colors duration-300">
+                        <i class="fa-solid fa-bell"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white font-heading mb-2.5">Lembretes & Confirmações</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Envio automatizado de lembretes humanizados 24h e 2h antes da consulta. O paciente confirma ou remarca com um toque, reduzindo faltas e preenchendo janelas ociosas.
+                    </p>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="glass-panel rounded-2xl p-6 sm:p-8 hover:border-brand-500/40 transition-all duration-300 hover:-translate-y-1 group">
+                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-400 text-xl mb-6 group-hover:bg-brand-500 group-hover:text-slate-950 transition-colors duration-300">
+                        <i class="fa-solid fa-shield-virus"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white font-heading mb-2.5">Segurança & Conformidade LGPD</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Dados de saúde protegidos sob os mais rígidos padrões internacionais. Criptografia ponta a ponta e respeito integral às diretrizes do CFM e CFO.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECURITY & INFRASTRUCTURE SECTION -->
+        <section id="seguranca" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="glass-panel rounded-3xl p-8 sm:p-12 border border-brand-500/20 relative overflow-hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-8">
+                        <span class="text-xs uppercase font-bold tracking-wider text-brand-400 bg-brand-500/10 px-3 py-1 rounded-full border border-brand-500/20">Arquitetura Blindada</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-heading mt-3 mb-4">
+                            Privacidade e Segurança em Padrão Hospitalar
+                        </h2>
+                        <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
+                            Na Recepta, os dados dos seus pacientes e o histórico da sua clínica são tratados como ativos estritamente confidenciais. Nossa infraestrutura em nuvem conta com isolamento multi-inquilino (*multi-tenant*), chaves criptográficas exclusivas e auditoria contínua de integridade.
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm text-slate-300">
+                            <div class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-lock text-brand-400 text-base mt-0.5"></i>
+                                <span><strong>Criptografia TLS 1.3 e AES-256:</strong> Todos os dados em trânsito e em repouso são protegidos por criptografia de nível bancário.</span>
+                            </div>
+                            <div class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-key text-brand-400 text-base mt-0.5"></i>
+                                <span><strong>Google OAuth 2.0 Granular:</strong> Acesso restrito e explícito apenas aos eventos necessários de agendamento.</span>
+                            </div>
+                            <div class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-user-shield text-brand-400 text-base mt-0.5"></i>
+                                <span><strong>Anti-AI Training:</strong> Os dados de seus pacientes nunca são usados para treinar modelos públicos de terceiros.</span>
+                            </div>
+                            <div class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-server text-brand-400 text-base mt-0.5"></i>
+                                <span><strong>Servidores Dedicados:</strong> Infraestrutura com monitoramento ativo 24/7 e backups automatizados.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-2xl bg-slate-900/80 border border-slate-800 text-center">
+                        <div class="w-16 h-16 rounded-2xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-400 text-3xl mb-3 shadow-inner">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white font-heading">Certificação de Segurança</h4>
+                        <p class="text-xs text-slate-400 mt-1 mb-4">Auditoria contínua de escopos e conformidade com a Google API Services Policy.</p>
+                        <a href="#privacidade" class="text-xs text-brand-400 hover:text-brand-300 font-semibold flex items-center gap-1.5 underline">
+                            <span>Ler Política de Privacidade Completa</span>
+                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- OFFICIAL PRIVACY POLICY SECTION (GOOGLE OAUTH AUDIT READY) -->
+        <section id="privacidade" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="glass-panel rounded-3xl p-6 sm:p-10 border border-brand-500/20 shadow-2xl">
+                
+                <!-- Section Header -->
+                <div class="border-b border-slate-800 pb-6 mb-8 text-center sm:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-400 border border-brand-500/20 mb-3">
+                        <i class="fa-solid fa-file-contract"></i>
+                        <span>Documento Institucional Oficial</span>
+                    </div>
+                    <h2 class="text-3xl font-bold text-white font-heading">Política de Privacidade & Uso de Dados</h2>
+                    <p class="text-slate-400 text-sm mt-2">
+                        Última atualização: 24 de Outubro de 2026 • Em conformidade com a LGPD (Lei Federal nº 13.709/2018) e a <strong>Google API Services User Data Policy</strong>.
+                    </p>
+                </div>
+
+                <!-- Legal Content Body -->
+                <div class="space-y-8 text-sm text-slate-300 leading-relaxed">
+                    
+                    <!-- 1. Identificação -->
+                    <div>
+                        <h3 class="text-lg font-bold text-white font-heading flex items-center gap-2 mb-2">
+                            <span class="w-6 h-6 rounded-md bg-brand-500/20 text-brand-400 flex items-center justify-center text-xs">1</span>
+                            Identificação do Controlador e Objeto
+                        </h3>
+                        <p>
+                            A <strong>Recepta Inteligência Artificial</strong> ("Recepta", "nós" ou "plataforma") é uma solução de tecnologia voltada à automação de atendimento e agendamento para consultórios médicos, odontológicos e clínicas de saúde. Esta Política de Privacidade descreve de forma clara e transparente como tratamos, armazenamos e protegemos as informações fornecidas pelos profissionais de saúde ("Clientes") e seus respectivos pacientes ("Usuários finais").
+                        </p>
+                    </div>
+
+                    <!-- 2. Integração com o Google Calendar & Escopos -->
+                    <div class="p-5 rounded-2xl bg-slate-900/90 border border-brand-500/30">
+                        <h3 class="text-lg font-bold text-white font-heading flex items-center gap-2 mb-3 text-brand-400">
+                            <i class="fa-brands fa-google"></i>
+                            2. Integração Oficial com o Google Calendar (Google API)
+                        </h3>
+                        <p class="mb-4">
+                            Para fornecer o serviço de agendamento automático em tempo real, a Recepta solicita a autorização expressa do profissional de saúde por meio do fluxo oficial seguro de consentimento Google OAuth 2.0.
+                        </p>
+
+                        <!-- Tabela de Escopos -->
+                        <div class="overflow-x-auto mb-4">
+                            <table class="w-full text-left text-xs border border-slate-700 rounded-lg overflow-hidden">
+                                <thead class="bg-slate-800 text-slate-200">
+                                    <tr>
+                                        <th class="p-3 border-b border-slate-700">Escopo da Google API</th>
+                                        <th class="p-3 border-b border-slate-700">Permissão Concedida</th>
+                                        <th class="p-3 border-b border-slate-700">Finalidade Exclusiva</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-800 bg-slate-950/60">
+                                    <tr>
+                                        <td class="p-3 font-mono text-brand-300">https://www.googleapis.com/auth/calendar.events</td>
+                                        <td class="p-3 text-slate-300">Visualizar, criar, alterar e excluir eventos de calendário.</td>
+                                        <td class="p-3 text-slate-300">Permitir que a Recepta IA verifique horários disponíveis na agenda do médico e registre ou desmarque consultas solicitadas pelos pacientes via WhatsApp.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p class="text-xs text-slate-400 leading-normal">
+                            <strong>Princípio do Privilégio Mínimo:</strong> A Recepta NÃO acessa emails do Gmail, contatos pessoais, arquivos do Google Drive ou quaisquer outros dados da conta Google do usuário. O acesso restringe-se estritamente aos eventos do calendário configurado.
+                        </p>
+                    </div>
+
+                    <!-- 3. Declaração Obrigatória de Uso Limitado do Google -->
+                    <div class="p-5 rounded-2xl bg-emerald-950/20 border border-emerald-500/30">
+                        <h3 class="text-base font-bold text-emerald-300 font-heading flex items-center gap-2 mb-2">
+                            <i class="fa-solid fa-clipboard-check"></i>
+                            3. Declaração de Conformidade com o Uso Limitado (Google API Limited Use Disclosure)
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">
+                            O uso e a transferência pela <strong>Recepta</strong> para qualquer outro aplicativo de informações recebidas das APIs do Google aderirão integralmente à <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener noreferrer" class="text-brand-400 underline font-medium hover:text-brand-300">Google API Services User Data Policy</a>, incluindo os requisitos de Uso Limitado (Limited Use).
+                        </p>
+                    </div>
+
+                    <!-- 4. Não Utilização para Treinamento de IA -->
+                    <div>
+                        <h3 class="text-lg font-bold text-white font-heading flex items-center gap-2 mb-2">
+                            <span class="w-6 h-6 rounded-md bg-brand-500/20 text-brand-400 flex items-center justify-center text-xs">4</span>
+                            Compromisso Anti-Treinamento de Modelos de IA
+                        </h3>
+                        <p class="mb-2">
+                            Declaramos formalmente e categoricamente que:
+                        </p>
+                        <ul class="list-disc pl-5 space-y-1.5 text-slate-300 text-xs sm:text-sm">
+                            <li><strong>Nenhum dado pessoal ou evento de calendário</strong> obtido por meio das APIs do Google Workspace é utilizado para treinar, aprimorar ou retreinar modelos fundacionais de Inteligência Artificial ou LLMs (Large Language Models) públicos ou de terceiros.</li>
+                            <li>Os dados do Google Calendar são processados efemeramente apenas em memória de execução para fins de conferência de agenda e gravação imediata do compromisso.</li>
+                        </ul>
+                    </div>
+
+                    <!-- 5. Não Comercialização e Não Compartilhamento -->
+                    <div>
+                        <h3 class="text-lg font-bold text-white font-heading flex items-center gap-2 mb-2">
+                            <span class="w-6 h-6 rounded-md bg-brand-500/20 text-brand-400 flex items-center justify-center text-xs">5</span>
+                            Não Comercialização de Dados (Zero Data Brokerage)
+                        </h3>
+                        <p>
+                            A Recepta <strong>NUNCA vende, aluga, transfere, monetiza ou compartilha</strong> quaisquer dados de usuários, informações de pacientes ou eventos de calendário para empresas de publicidade, redes de anúncios, corretores de dados (*data brokers*) ou parceiros comerciais para fins de marketing.
+                        </p>
+                    </div>
+
+                    <!-- 6. Direitos do Titular (LGPD) e Revogação do Google -->
+                    <div>
+                        <h3 class="text-lg font-bold text-white font-heading flex items-center gap-2 mb-2">
+                            <span class="w-6 h-6 rounded-md bg-brand-500/20 text-brand-400 flex items-center justify-center text-xs">6</span>
+                            Seus Direitos e Revogação de Acesso
+                        </h3>
+                        <p class="mb-3">
+                            Nos termos da LGPD (Art. 18), você possui o direito de confirmar a existência de tratamento, solicitar o acesso, retificação, bloqueio ou eliminação de seus dados pessoais armazenados.
+                        </p>
+                        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 text-xs">
+                            <p class="font-semibold text-white mb-1"><i class="fa-solid fa-lock-open text-brand-400 mr-1.5"></i> Como revogar o acesso à sua conta Google:</p>
+                            <p class="text-slate-300">
+                                O Cliente pode revogar a permissão de acesso da Recepta ao seu Google Agenda a qualquer instante diretamente na página oficial de segurança da Google: 
+                                <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener noreferrer" class="text-brand-400 underline font-mono">https://myaccount.google.com/permissions</a>. 
+                                Após a revogação, nossa aplicação perderá imediatamente a capacidade de interagir com o seu calendário.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 7. Canal do DPO / Contato -->
+                    <div class="pt-4 border-t border-slate-800">
+                        <h3 class="text-lg font-bold text-white font-heading flex items-center gap-2 mb-2">
+                            <span class="w-6 h-6 rounded-md bg-brand-500/20 text-brand-400 flex items-center justify-center text-xs">7</span>
+                            Encarregado pelo Tratamento de Dados (DPO) & Contato
+                        </h3>
+                        <p class="text-xs sm:text-sm">
+                            Para exercer seus direitos de titular ou esclarecer qualquer dúvida sobre o tratamento de dados pessoais, entre em contato diretamente com o nosso Encarregado de Proteção de Dados:
+                        </p>
+                        <div class="mt-3 flex flex-wrap gap-4 text-xs font-mono">
+                            <div class="px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300">
+                                <strong>E-mail DPO:</strong> dpo@recepta.com.br
+                            </div>
+                            <div class="px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300">
+                                <strong>Suporte Geral:</strong> contato@recepta.com.br
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- TERMS OF SERVICE SECTION -->
+        <section id="termos" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="glass-panel rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-2xl">
+                
+                <div class="border-b border-slate-800 pb-6 mb-8 text-center sm:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-400 border border-brand-500/20 mb-3">
+                        <i class="fa-solid fa-gavel"></i>
+                        <span>Contrato de Uso</span>
+                    </div>
+             
+<truncated 10881 bytes>
+
+NOTE: The output was truncated because it was too long. Use a more targeted query or a smaller range to get the information you need.
