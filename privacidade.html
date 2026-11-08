@@ -20,7 +20,7 @@ code{font-size:.85em;word-break:break-all}footer{color:var(--mut);font-size:.85r
 </div></header>
 <main><h1>Política de Privacidade</h1>
 
-<p class="meta">Versão 2026-11-03-4 • Atualizada em 3 de novembro de 2026</p>
+<p class="meta">Versão 2026-11-08-1 • Atualizada em 8 de novembro de 2026</p>
 
 <h2>1. Quem somos e qual é o nosso papel</h2>
 <p>A <strong>Recepta</strong> é um serviço de secretária virtual para consultórios e clínicas: uma assistente com inteligência artificial (IA) que atende pacientes pelo WhatsApp, consulta e grava consultas no Google Agenda e repassa à equipe o que não souber responder.</p>
@@ -50,7 +50,7 @@ code{font-size:.85em;word-break:break-all}footer{color:var(--mut);font-size:.85r
 
 <h2>4. Inteligência artificial</h2>
 <ul>
-<li>As respostas do atendimento são geradas por IA (modelos Gemini, do Google). Para isso, o conteúdo da conversa necessário para responder é enviado ao Google.</li>
+<li>As respostas do atendimento são geradas por IA (modelos Gemini, do Google). Para isso, o conteúdo da conversa necessário para responder é enviado ao Google. </li>
 <li>A IA <strong>não faz diagnóstico, não prescreve e não substitui profissional de saúde</strong>. Pode errar. Quando não souber responder, ou quando o paciente pedir uma pessoa, a conversa é encaminhada à equipe da clínica, que pode assumir o atendimento pelo mesmo WhatsApp. Nesses casos, a pergunta do paciente e o número dele são enviados ao WhatsApp da equipe indicado pela clínica.</li>
 <li>O paciente pode, a qualquer momento, pedir para falar com uma pessoa da clínica e pedir a revisão de qualquer informação dada pela IA (LGPD art. 20).</li>
 <li>Em emergência, não use este canal: procure o SAMU (192) ou um pronto atendimento.</li>
@@ -71,16 +71,16 @@ code{font-size:.85em;word-break:break-all}footer{color:var(--mut);font-size:.85r
 <h2>6. Com quem os dados são compartilhados (suboperadores)</h2>
 <p>Para prestar o serviço usamos os fornecedores abaixo. Cada um recebe apenas o necessário para a sua função:</p>
 <div class="rolagem"><table>
-<thead><tr><th>Fornecedor</th><th>Função</th><th>Dados envolvidos</th></tr></thead>
+<thead><tr><th>Fornecedor</th><th>Função</th><th>Dados envolvidos</th><th>Onde opera</th></tr></thead>
 <tbody>
-<tr><td>Google (Gemini API e Google Agenda)</td><td>IA que redige as respostas e agenda de consultas</td><td>Trechos das conversas e dados das consultas</td></tr>
-<tr><td>Meta / WhatsApp</td><td>Troca de mensagens com o paciente</td><td>Mensagens e número de telefone</td></tr>
-<tr><td>Evolution API (software que rodamos em nossa própria infraestrutura)</td><td>Conexão do número de WhatsApp da clínica com o sistema</td><td>Mensagens e número de telefone</td></tr>
-<tr><td>Amazon Web Services (AWS)</td><td>Hospedagem dos servidores e dos dados</td><td>Todos os dados do sistema</td></tr>
-<tr><td>Provedor de nome de domínio e certificado HTTPS</td><td>Endereço e conexão segura do painel</td><td>Endereço IP de quem acessa</td></tr>
-<tr><td>GitHub Pages e serviços de bibliotecas de página (como Cloudflare e Google Fonts)</td><td>Hospedagem do site público e carregamento de fontes, ícones e scripts</td><td>Endereço IP de quem visita o site ou o painel</td></tr>
+<tr><td>Google (Gemini API e Google Agenda)</td><td>IA que redige as respostas e agenda de consultas</td><td>Trechos das conversas e dados das consultas</td><td>Estados Unidos e outros países</td></tr>
+<tr><td>Meta / WhatsApp</td><td>Troca de mensagens com o paciente</td><td>Mensagens e número de telefone</td><td>Estados Unidos e outros países</td></tr>
+<tr><td>Evolution API (software que rodamos em nossa própria infraestrutura)</td><td>Conexão do número de WhatsApp da clínica com o sistema</td><td>Mensagens e número de telefone</td><td>Nossa própria hospedagem (AWS)</td></tr>
+<tr><td>Amazon Web Services (AWS)</td><td>Hospedagem dos servidores e dos dados</td><td>Todos os dados do sistema</td><td>Região da AWS contratada (informada à Clínica, a pedido)</td></tr>
+<tr><td>Provedor de nome de domínio e certificado HTTPS</td><td>Endereço e conexão segura do painel</td><td>Endereço IP de quem acessa</td><td>Estados Unidos e outros países</td></tr>
+<tr><td>GitHub Pages e serviços de bibliotecas de página (como Cloudflare e Google Fonts)</td><td>Hospedagem do site público e carregamento de fontes, ícones e scripts</td><td>Endereço IP de quem visita o site ou o painel</td><td>Estados Unidos e outros países</td></tr>
 </tbody></table></div>
-<p>Google, Meta e AWS têm termos e políticas próprios, que regem os serviços deles. Também podemos compartilhar dados quando a lei ou uma ordem judicial exigir.</p>
+<p>Google, Meta e AWS têm termos e políticas próprios, que regem os serviços deles. Escolhemos fornecedores com termos compatíveis com a LGPD e exigimos deles, na medida do que o contrato de cada um permite, que não usem os dados para treinar modelos de IA de uso geral. Também podemos compartilhar dados quando a lei ou uma ordem judicial exigir.</p>
 
 <h2>7. Transferência para outros países</h2>
 <p>Alguns fornecedores (Google, Meta, AWS) mantêm servidores fora do Brasil, inclusive nos Estados Unidos. A transferência é feita para a execução do serviço contratado e com base nas cláusulas e garantias contratuais oferecidas por esses fornecedores e na regulamentação da ANPD sobre o tema, conforme a LGPD, art. 33.</p>
@@ -92,6 +92,8 @@ code{font-size:.85em;word-break:break-all}footer{color:var(--mut);font-size:.85r
 <li>Separação entre clínicas: cada usuário só enxerga os dados da própria clínica.</li>
 <li>O recebimento de mensagens do WhatsApp exige uma chave secreta; o banco de dados e os serviços internos não ficam expostos à internet.</li>
 <li>Limite de tentativas de login e sessões que expiram.</li>
+<li>As credenciais de acesso ao Google Agenda de cada clínica são guardadas <strong>cifradas</strong> no servidor e fora do backup.</li>
+<li>Cabeçalhos de segurança no painel e bloqueio de endereços internos nas integrações.</li>
 <li>Comprovantes de pagamento só podem ser abertos pelo administrador.</li>
 <li>O sistema tem travas para evitar que a IA revele dados de um paciente a outro.</li>
 </ul>
@@ -102,24 +104,26 @@ code{font-size:.85em;word-break:break-all}footer{color:var(--mut);font-size:.85r
 <li>Os dados dos pacientes ficam guardados enquanto a clínica for nossa cliente, para que o atendimento tenha histórico. O histórico recente de cada conversa é mantido para a IA dar continuidade ao atendimento.</li>
 <li>Parte das mensagens também fica guardada no banco de dados da Evolution API (conexão com o WhatsApp) e em registros técnicos do servidor. Todos esses lugares entram nos pedidos de eliminação.</li>
 <li>Ao encerrar o contrato, ou a qualquer momento por pedido da clínica, apagamos ou devolvemos os dados em prazo razoável, salvo o que a lei obrigar a manter (por exemplo, registros de cobrança e fiscais).</li>
+<li>A clínica apaga os dados de um paciente pelo próprio painel (<em>Perfil e plano → Dados de um paciente</em>); o pedido fica anotado, sem o conteúdo. O que está na ferramenta de conexão com o WhatsApp é apagado por nós a pedido.</li>
 <li>A clínica deve definir por quanto tempo precisa manter os registros, inclusive o prontuário, conforme as normas do seu conselho profissional. A Recepta <strong>não é prontuário</strong>.</li>
 </ul>
 
 <h2>10. Incidentes de segurança</h2>
-<p>Se houver um incidente que possa causar risco ou dano relevante aos titulares, avisaremos a clínica sem demora, assim que tomarmos ciência, com o que for possível informar: natureza do incidente, dados envolvidos e medidas adotadas, para que a clínica, como controladora, cumpra a comunicação à ANPD e aos titulares (LGPD art. 48).</p>
+<p>Se houver um incidente que possa causar risco ou dano relevante aos titulares, avisaremos a clínica <strong>sem demora</strong>, assim que tomarmos ciência, com o que for possível informar: natureza do incidente, dados envolvidos e medidas adotadas, para que a clínica, como controladora dos dados dos pacientes, faça a comunicação à ANPD e aos titulares no prazo de <strong>3 dias úteis</strong> (LGPD art. 48 e Resolução CD/ANPD nº 15/2024).</p>
+<p>Quanto aos dados da conta da clínica e de cobrança, dos quais a Recepta é controladora, nós mesmos comunicamos a ANPD e os titulares. Mantemos um registro de todos os incidentes por pelo menos 5 anos.</p>
 
 <h2>11. Direitos do titular</h2>
 <p>Quem teve dados tratados pode pedir: confirmação de que há tratamento, acesso, correção, anonimização, bloqueio ou eliminação, portabilidade, informação sobre com quem os dados foram compartilhados e revisão de decisões automatizadas (LGPD art. 18 e 20).</p>
 <ul>
-<li><strong>Pacientes:</strong> o pedido ou a reclamação deve ser feito à <strong>clínica</strong> (controladora), que é quem responde ao paciente. Se chegar a nós, encaminhamos à clínica e ajudamos a atendê-lo no prazo.</li>
+<li><strong>Pacientes:</strong> o pedido ou a reclamação deve ser feito à <strong>clínica</strong> (controladora), que é quem responde ao paciente. Se chegar a nós, encaminhamos à clínica e ajudamos a atendê-la no prazo. O painel tem a ferramenta para a clínica baixar (acesso e portabilidade) ou apagar os dados de um paciente pelo telefone.</li>
 <li><strong>Clínicas e usuários do painel:</strong> escrevam para <strong>lucasrecepta@gmail.com</strong>.</li>
 </ul>
 
 <h2>12. Crianças e adolescentes</h2>
-<p>Pacientes menores de idade são atendidos por meio dos pais ou responsáveis. A clínica é responsável por tratar esses dados no melhor interesse do menor, com o consentimento de ao menos um dos responsáveis quando a lei exigir (LGPD art. 14).</p>
+<p>Pacientes menores de idade são atendidos por meio dos pais ou responsáveis. A clínica é responsável por tratar esses dados no melhor interesse do menor, com o consentimento de ao menos um dos responsáveis quando a lei exigir (LGPD art. 14). A Recepta não pergunta nem guarda a idade do paciente; quando a conversa indicar que quem escreve é menor de idade, a secretária pede que um responsável continue o atendimento.</p>
 
 <h2>13. Cookies e armazenamento no navegador</h2>
-<p>O painel guarda no seu navegador apenas o necessário para manter você conectado. Não usamos cookies de publicidade nem rastreamento. As páginas carregam fontes e ícones de serviços externos (como Google Fonts), que podem registrar o endereço IP de quem acessa.</p>
+<p>O painel guarda no seu navegador (armazenamento local) apenas o necessário para o funcionamento: o login da sessão, o tema e se o menu lateral está aberto. <strong>Não usamos cookies de publicidade, de análise nem de rastreamento</strong>; por isso não exibimos aviso de cookies com botão de recusar. Se um dia passarmos a usá-los, só será depois de pedir o seu consentimento, com a opção de recusar. As páginas carregam fontes e ícones de serviços externos (como Google Fonts), que podem registrar o endereço IP de quem acessa.</p>
 
 <h2>14. Mudanças nesta política</h2>
 <p>Quando esta política mudar de forma relevante, publicamos a nova versão e, se necessário, pedimos novo aceite dentro do painel. A versão e a data estão no topo da página.</p>
@@ -127,4 +131,4 @@ code{font-size:.85em;word-break:break-all}footer{color:var(--mut);font-size:.85r
 <h2>15. Encarregado e contato</h2>
 <p>Para exercer direitos, tirar dúvidas ou comunicar problemas de privacidade: <strong>lucasrecepta@gmail.com</strong>.<br>Responsável e encarregado pelo tratamento de dados (canal de contato): <strong>Lucas Vilaça Melo Costa</strong>.</p>
 
-</main><footer>Recepta • documento versão 2026-11-03-4</footer></body></html>
+</main><footer>Recepta • documento versão 2026-11-08-1</footer></body></html>
