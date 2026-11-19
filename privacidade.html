@@ -1,28 +1,60 @@
 <!DOCTYPE html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Política de Privacidade | Recepta</title>
-<meta name="robots" content="index,follow">
+<meta name="robots" content="index,follow"><meta name="theme-color" content="#0B0F0E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:light dark;--bg:#ffffff;--fg:#1f2937;--mut:#6b7280;--acc:#047857;--card:#f3f4f6;--bd:#e5e7eb}
-@media (prefers-color-scheme:dark){:root{--bg:#0b1220;--fg:#e5e7eb;--mut:#9ca3af;--acc:#34d399;--card:#111c30;--bd:#1f2a44}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-.topo{border-bottom:1px solid var(--bd);padding:14px 16px}.topo div,main{max-width:860px;margin:0 auto}
-.topo a{color:var(--acc);text-decoration:none;font-weight:600;margin-right:18px}main{padding:24px 16px 64px}
-h1{font-size:1.7rem;margin:.2em 0 .1em}h2{font-size:1.15rem;margin:1.8em 0 .4em;color:var(--acc)}
-.meta{color:var(--mut);font-size:.9rem}ul,ol{padding-left:1.2em}li{margin:.35em 0}a{color:var(--acc)}
-.destaque{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px 14px}
-.rolagem{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.92rem}
-th,td{border:1px solid var(--bd);padding:8px 10px;text-align:left;vertical-align:top}th{background:var(--card)}
-code{font-size:.85em;word-break:break-all}footer{color:var(--mut);font-size:.85rem;border-top:1px solid var(--bd);padding:16px;text-align:center}
+:root{color-scheme:dark;--bg:#0B0F0E;--fg:#C5CCD3;--forte:#F7F8F9;--mut:#A3ADB7;--acc:#8ED9B2;--card:#131917;--card2:#0F1513;--bd:#232B28;
+--barra:rgba(16,22,20,.7);--luz:rgba(235,211,174,.08);--serifa:'Fraunces',Georgia,serif;--titulo:'Bricolage Grotesque',system-ui,sans-serif;--corpo:'Hanken Grotesk',system-ui,sans-serif}
+@media (prefers-color-scheme:light){:root{color-scheme:light;--bg:#F5F2EC;--fg:#2E3433;--forte:#111615;--mut:#5A6462;--acc:#1D6B53;--card:#FFFFFF;--card2:#FBF9F5;
+--bd:rgba(17,22,21,.12);--barra:rgba(255,253,249,.82);--luz:rgba(222,186,132,.2)}}
+*{box-sizing:border-box}html{scroll-padding-top:96px}
+body{margin:0;background:var(--bg);color:var(--fg);font:16.5px/1.72 var(--corpo);-webkit-font-smoothing:antialiased;
+background-image:radial-gradient(60rem 30rem at 15% -10%,var(--luz),transparent 60%)}
+a{color:var(--acc)}a:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:4px}
+.topo{position:sticky;top:12px;z-index:5;margin:12px 12px 0}
+.topo div{max-width:860px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;padding:10px 12px;border-radius:18px 18px 18px 5px;
+background:var(--barra);border:1px solid var(--bd);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.topo a{color:var(--mut);text-decoration:none;font-weight:500;font-size:.92rem;padding:8px 10px;border-radius:10px 10px 10px 3px}
+.topo a:hover{color:var(--forte)}
+.topo a.marca{margin-right:auto;color:var(--forte);font-family:var(--serifa);font-weight:600;font-size:1.3rem;letter-spacing:-.02em;padding-left:4px}
+.topo a.marca span{color:var(--acc)}
+main{max-width:860px;margin:0 auto;padding:56px 24px 72px}
+h1{font-family:var(--serifa);font-weight:500;font-size:clamp(2.3rem,5.5vw,3.4rem);line-height:1.04;letter-spacing:-.035em;color:var(--forte);margin:0 0 .35em;max-width:18ch}
+h2{font-family:var(--titulo);font-weight:600;font-size:1.22rem;letter-spacing:-.01em;color:var(--forte);margin:2.4em 0 .5em;padding-top:1.2em;border-top:1px solid var(--bd)}
+h3{font-family:var(--titulo);font-weight:600;font-size:1.05rem;color:var(--forte)}
+strong{color:var(--forte);font-weight:600}
+.meta{color:var(--mut);font-size:.92rem}ul,ol{padding-left:1.25em}li{margin:.4em 0}li::marker{color:var(--acc)}
+p,li{max-width:70ch}
+.destaque{background:var(--card);border:1px solid var(--bd);border-radius:16px 16px 16px 4px;padding:16px 18px}
+.rolagem{overflow-x:auto;border:1px solid var(--bd);border-radius:16px 16px 16px 4px;background:var(--card)}
+table{border-collapse:collapse;min-width:640px;font-size:.92rem}
+th,td{border-bottom:1px solid var(--bd);padding:10px 14px;text-align:left;vertical-align:top}
+th{background:var(--card2);color:var(--forte);font-weight:600}tr:last-child td{border-bottom:0}
+code{font-size:.85em;word-break:break-all}
+footer{max-width:860px;margin:0 auto;padding:28px 24px 48px;border-top:1px solid var(--bd);color:var(--mut);font-size:.88rem}
+footer b{font-family:var(--serifa);font-weight:600;font-size:1.15rem;color:var(--forte);margin-right:10px}
+.topo a.marca{display:inline-flex;align-items:center;gap:9px}.topo a.marca svg{width:28px;height:28px;flex:none}
+.topo .pingo{display:inline-block;width:.26em;height:.26em;margin-left:.06em;border-radius:999px 999px 999px 1px;background:var(--acc)}
+.topo a[aria-current="page"]{color:var(--forte);background:rgba(142,217,178,.1)}
+.sumario{margin:28px 0 8px;padding:18px 20px;border-radius:16px 16px 16px 4px;background:var(--card);border:1px solid var(--bd)}
+.sumario b{display:block;font-family:var(--titulo);font-weight:600;color:var(--forte);margin-bottom:6px}
+.sumario ol{margin:0;padding:0;list-style:none;columns:2 16rem;column-gap:28px}.sumario li{margin:.25em 0;break-inside:avoid}
+.sumario a{text-decoration:none;font-size:.94rem}.sumario a:hover{text-decoration:underline}
+.rolagem{background:linear-gradient(90deg,var(--card) 30%,transparent) left/40px 100% no-repeat local,linear-gradient(270deg,var(--card) 30%,transparent) right/40px 100% no-repeat local,
+radial-gradient(farthest-side at 100% 50%,rgba(0,0,0,.35),transparent) right/14px 100% no-repeat scroll,var(--card)}
+@media (max-width:560px){.topo{position:static;margin:8px 8px 0}.topo div{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding:8px}.topo div::-webkit-scrollbar{display:none}.topo a{white-space:nowrap;font-size:.85rem;padding:8px}
+.topo a.marca svg{width:24px;height:24px}main{padding:36px 18px 56px}.sumario ol{columns:1}}
+@media (prefers-reduced-transparency:reduce){.topo div{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--card)}}
 </style></head>
 <body><header class="topo"><div>
-<a href="index.html">Recepta</a><a href="privacidade.html">Política de Privacidade</a><a href="termos.html">Termos de Uso</a>
+<a class="marca" href="index.html" aria-label="Recepta, página inicial"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 1H22A9 9 0 0 1 31 10V22A9 9 0 0 1 22 31H4A3 3 0 0 1 1 28V10A9 9 0 0 1 10 1Z" fill="#1D6B53"/><path d="M10.2 26V10A2.6 2.6 0 0 1 12.8 7.4H20.4A2.6 2.6 0 0 1 23 10V26" fill="none" stroke="#E9D2A6" stroke-width="1.7" stroke-linecap="round"/><path d="M12.6 25.6V9.9L18.4 8.4V26.4Z" fill="#E9D2A6"/></svg><span style="color:var(--forte)">Recept<span>a</span><i class="pingo" aria-hidden="true"></i></span></a><a href="privacidade.html" aria-current="page">Política de Privacidade</a><a href="termos.html">Termos de Uso</a>
 </div></header>
 <main><h1>Política de Privacidade</h1>
 
-<p class="meta">Versão 2026-11-17 • Atualizada em 17 de novembro de 2026</p>
+<p class="meta">Versão 2026-11-17 • Atualizada em 17 de novembro de 2026</p><nav class="sumario" aria-label="Nesta página"><b>Nesta página</b><ol><li><a href="#secao-1">1. Quem somos e qual é o nosso papel</a></li><li><a href="#secao-2">2. Quais dados tratamos</a></li><li><a href="#secao-3">3. Para que usamos e em que base legal</a></li><li><a href="#secao-4">4. Inteligência artificial</a></li><li><a href="#secao-5">5. Google Agenda e as APIs do Google</a></li><li><a href="#secao-6">6. Com quem os dados são compartilhados (suboperadores)</a></li><li><a href="#secao-7">7. Transferência para outros países</a></li><li><a href="#secao-8">8. Como protegemos os dados</a></li><li><a href="#secao-9">9. Por quanto tempo guardamos e como apagamos</a></li><li><a href="#secao-10">10. Incidentes de segurança</a></li><li><a href="#secao-11">11. Direitos do titular</a></li><li><a href="#secao-12">12. Crianças e adolescentes</a></li><li><a href="#secao-13">13. Cookies e armazenamento no navegador</a></li><li><a href="#secao-14">14. Mudanças nesta política</a></li><li><a href="#secao-15">15. Encarregado e contato</a></li></ol></nav>
 
-<h2>1. Quem somos e qual é o nosso papel</h2>
+<h2 id="secao-1">1. Quem somos e qual é o nosso papel</h2>
 <p>A <strong>Recepta</strong> é um serviço de secretária virtual para consultórios e clínicas: uma assistente com inteligência artificial (IA) que atende pacientes pelo WhatsApp, consulta e grava consultas no Google Agenda e repassa à equipe o que não souber responder.</p>
 <p>O serviço é prestado por <strong>Lucas Vilaça Melo Costa</strong>, contato de privacidade: <strong>lucasrecepta@gmail.com</strong>.</p>
 <ul>
@@ -30,7 +62,7 @@ code{font-size:.85em;word-break:break-all}footer{color:var(--mut);font-size:.85r
 <li><strong>Dados da conta da clínica</strong> (usuários, login, cobrança da assinatura): a Recepta é a <em>controladora</em>.</li>
 </ul>
 
-<h2>2. Quais dados tratamos</h2>
+<h2 id="secao-2">2. Quais dados tratamos</h2>
 <ul>
 <li><strong>Do paciente, pelo WhatsApp:</strong> nome informado, número de telefone, o conteúdo das mensagens (texto, legendas de fotos e a transcrição de áudios; o áudio é enviado ao Google para ser transcrito). A IA não lê fotos nem documentos enviados, mas o registro dessas mensagens pode ficar guardado na ferramenta de conexão com o WhatsApp (seção 9). Como a conversa é com uma clínica, essas mensagens <strong>podem conter dados de saúde</strong> (dado pessoal sensível, LGPD art. 11), por exemplo o motivo da consulta.</li>
 <li><strong>Da agenda:</strong> nome, telefone, data, horário e procedimento das consultas marcadas, cancelamentos e remarcações.</li>
@@ -39,7 +71,7 @@ code{font-size:.85em;word-break:break-all}footer{color:var(--mut);font-size:.85r
 </ul>
 <p>Não pedimos nem tratamos dados de cartão. Não coletamos CPF dos pacientes.</p>
 
-<h2>3. Para que usamos e em que base legal</h2>
+<h2 id="secao-3">3. Para que usamos e em que base legal</h2>
 <ul>
 <li><strong>Atender, agendar, remarcar, cancelar e lembrar consultas</strong> em nome da clínica. Base: execução do contrato e procedimentos preliminares a pedido do titular (art. 7º, V) e, para dados de saúde, tutela da saúde em procedimento realizado por profissional de saúde (art. 11, II, "f"), definidas pela clínica como controladora.</li>
 <li><strong>Prestar e cobrar o serviço à clínica</strong> (conta, assinatura, suporte). Base: execução do contrato.</li>
@@ -48,7 +80,7 @@ code{font-size:.85em;word-break:break-all}footer{color:var(--mut);font-size:.85r
 </ul>
 <p><strong>Não vendemos dados, não usamos para publicidade e não fazemos perfil comercial de pacientes.</strong></p>
 
-<h2>4. Inteligência artificial</h2>
+<h2 id="secao-4">4. Inteligência artificial</h2>
 <ul>
 <li>As respostas do atendimento são geradas por IA (modelos Gemini, do Google). Para isso, o conteúdo da conversa necessário para responder é enviado ao Google. </li>
 <li>A IA <strong>não faz diagnóstico, não prescreve e não substitui profissional de saúde</strong>. Pode errar. Quando não souber responder, ou quando o paciente pedir uma pessoa, a conversa é encaminhada à equipe da clínica, que pode assumir o atendimento pelo mesmo WhatsApp. Nesses casos, a pergunta do paciente e o número dele são enviados ao WhatsApp da equipe indicado pela clínica.</li>
@@ -56,7 +88,7 @@ code{font-size:.85em;word-break:break-all}footer{color:var(--mut);font-size:.85r
 <li>Em emergência, não use este canal: procure o SAMU (192) ou um pronto atendimento.</li>
 </ul>
 
-<h2>5. Google Agenda e as APIs do Google</h2>
+<h2 id="secao-5">5. Google Agenda e as APIs do Google</h2>
 <p>Para marcar consultas, a clínica autoriza a Recepta a acessar o Google Agenda dela, pelo fluxo oficial de autorização do Google (OAuth 2.0). Pedimos apenas estas permissões:</p>
 <div class="rolagem"><table><thead><tr><th>Permissão (escopo) do Google</th><th>O que permite</th><th>Para que usamos</th></tr></thead><tbody><tr><td><code>https://www.googleapis.com/auth/calendar.events</code></td><td>Ver, criar, alterar e apagar eventos do Google Agenda.</td><td>Conferir os horários livres do médico e gravar, remarcar ou cancelar as consultas pedidas pelos pacientes.</td></tr><tr><td><code>https://www.googleapis.com/auth/userinfo.email</code></td><td>Ver o endereço de e-mail da conta Google conectada.</td><td>Mostrar no painel qual conta Google está conectada à clínica.</td></tr></tbody></table></div>
 <ul>
@@ -68,7 +100,7 @@ code{font-size:.85em;word-break:break-all}footer{color:var(--mut);font-size:.85r
 <p class="destaque"><strong>Declaração de Uso Limitado (Google API Limited Use):</strong> o uso e a transferência, pela Recepta, para qualquer outro aplicativo, de informações recebidas das APIs do Google obedecerão à <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener noreferrer">Política de Dados do Usuário dos Serviços de API do Google</a>, incluindo os requisitos de Uso Limitado. (The use and transfer to any other app of information received from Google APIs will adhere to the Google API Services User Data Policy, including the Limited Use requirements.)</p>
 <p><strong>Revogar o acesso:</strong> a clínica pode retirar a autorização a qualquer momento em <a href="https://myaccount.google.com/permissions" rel="noopener noreferrer">myaccount.google.com/permissions</a>. Depois disso a Recepta perde o acesso à agenda.</p>
 
-<h2>6. Com quem os dados são compartilhados (suboperadores)</h2>
+<h2 id="secao-6">6. Com quem os dados são compartilhados (suboperadores)</h2>
 <p>Para prestar o serviço usamos os fornecedores abaixo. Cada um recebe apenas o necessário para a sua função:</p>
 <div class="rolagem"><table>
 <thead><tr><th>Fornecedor</th><th>Função</th><th>Dados envolvidos</th><th>Onde opera</th></tr></thead>
@@ -82,10 +114,10 @@ code{font-size:.85em;word-break:break-all}footer{color:var(--mut);font-size:.85r
 </tbody></table></div>
 <p>Google, Meta e AWS têm termos e políticas próprios, que regem os serviços deles. Escolhemos fornecedores com termos compatíveis com a LGPD e, sempre que possível, planos em que o fornecedor declara não usar o conteúdo para treinar modelos de IA de uso geral; o que cada um faz com os dados é regido pelos termos dele. Também podemos compartilhar dados quando a lei ou uma ordem judicial exigir.</p>
 
-<h2>7. Transferência para outros países</h2>
+<h2 id="secao-7">7. Transferência para outros países</h2>
 <p>Alguns fornecedores (Google, Meta, AWS) mantêm servidores fora do Brasil, inclusive nos Estados Unidos. A transferência é feita para a execução do serviço contratado e com base nas cláusulas e garantias contratuais oferecidas por esses fornecedores e na regulamentação da ANPD sobre o tema, conforme a LGPD, art. 33.</p>
 
-<h2>8. Como protegemos os dados</h2>
+<h2 id="secao-8">8. Como protegemos os dados</h2>
 <ul>
 <li>Acesso ao painel por login e senha; as senhas são guardadas com algoritmo de proteção (PBKDF2) e nunca em texto aberto.</li>
 <li>Conexão protegida por HTTPS (TLS) entre o navegador e o sistema.</li>
@@ -99,7 +131,7 @@ code{font-size:.85em;word-break:break-all}footer{color:var(--mut);font-size:.85r
 </ul>
 <p>Nenhum sistema é totalmente imune a falhas. Por isso, além dessas medidas, mantemos o compromisso de comunicar incidentes conforme a seção 10.</p>
 
-<h2>9. Por quanto tempo guardamos e como apagamos</h2>
+<h2 id="secao-9">9. Por quanto tempo guardamos e como apagamos</h2>
 <ul>
 <li>Os dados dos pacientes ficam guardados enquanto a clínica for nossa cliente, para que o atendimento tenha histórico. O histórico recente de cada conversa é mantido para a IA dar continuidade ao atendimento.</li>
 <li>A ferramenta de conexão com o WhatsApp (Evolution API) guarda uma cópia das mensagens e dos contatos do número conectado, <strong>inclusive conversas que não são de pacientes</strong>; por isso recomendamos usar um número exclusivo da clínica. Parte das mensagens aparece também nos registros técnicos do servidor.</li>
@@ -110,27 +142,27 @@ code{font-size:.85em;word-break:break-all}footer{color:var(--mut);font-size:.85r
 <li>A clínica deve definir por quanto tempo precisa manter os registros, inclusive o prontuário, conforme as normas do seu conselho profissional. A Recepta <strong>não é prontuário</strong>.</li>
 </ul>
 
-<h2>10. Incidentes de segurança</h2>
+<h2 id="secao-10">10. Incidentes de segurança</h2>
 <p>Se houver um incidente que possa causar risco ou dano relevante aos titulares, avisaremos a clínica <strong>sem demora</strong>, assim que tomarmos ciência, com o que for possível informar: natureza do incidente, dados envolvidos e medidas adotadas, para que a clínica, como controladora dos dados dos pacientes, faça a comunicação à ANPD e aos titulares no prazo de <strong>3 dias úteis</strong> (LGPD art. 48 e Resolução CD/ANPD nº 15/2024).</p>
 <p>Quanto aos dados da conta da clínica e de cobrança, dos quais a Recepta é controladora, nós mesmos comunicamos a ANPD e os titulares. Mantemos um registro de todos os incidentes por pelo menos 5 anos.</p>
 
-<h2>11. Direitos do titular</h2>
+<h2 id="secao-11">11. Direitos do titular</h2>
 <p>Quem teve dados tratados pode pedir: confirmação de que há tratamento, acesso, correção, anonimização, bloqueio ou eliminação, portabilidade, informação sobre com quem os dados foram compartilhados e revisão de decisões automatizadas (LGPD art. 18 e 20).</p>
 <ul>
 <li><strong>Pacientes:</strong> o pedido ou a reclamação deve ser feito à <strong>clínica</strong> (controladora), que é quem responde ao paciente. Se chegar a nós, encaminhamos à clínica e ajudamos a atendê-la no prazo. O painel tem a ferramenta para a clínica baixar (acesso e portabilidade) ou apagar os dados de um paciente pelo telefone.</li>
 <li><strong>Clínicas e usuários do painel:</strong> escrevam para <strong>lucasrecepta@gmail.com</strong>.</li>
 </ul>
 
-<h2>12. Crianças e adolescentes</h2>
+<h2 id="secao-12">12. Crianças e adolescentes</h2>
 <p>Pacientes menores de idade são atendidos por meio dos pais ou responsáveis. A clínica é responsável por tratar esses dados no melhor interesse do menor, com o consentimento de ao menos um dos responsáveis quando a lei exigir (LGPD art. 14). A Recepta não pergunta nem guarda a idade do paciente; quando a conversa indicar que quem escreve é menor de idade, a secretária é orientada a pedir que um responsável continue o atendimento.</p>
 
-<h2>13. Cookies e armazenamento no navegador</h2>
+<h2 id="secao-13">13. Cookies e armazenamento no navegador</h2>
 <p>O painel guarda no seu navegador (armazenamento local) apenas o necessário para o funcionamento: o login da sessão, o tema e se o menu lateral está aberto. <strong>Não usamos cookies de publicidade, de análise nem de rastreamento</strong>; por isso não exibimos aviso de cookies com botão de recusar. Se um dia passarmos a usá-los, só será depois de pedir o seu consentimento, com a opção de recusar. As páginas carregam fontes e ícones de serviços externos (como Google Fonts), que podem registrar o endereço IP de quem acessa.</p>
 
-<h2>14. Mudanças nesta política</h2>
+<h2 id="secao-14">14. Mudanças nesta política</h2>
 <p>Quando esta política mudar de forma relevante, publicamos a nova versão e, se necessário, pedimos novo aceite dentro do painel. A versão e a data estão no topo da página.</p>
 
-<h2>15. Encarregado e contato</h2>
+<h2 id="secao-15">15. Encarregado e contato</h2>
 <p>Para exercer direitos, tirar dúvidas ou comunicar problemas de privacidade: <strong>lucasrecepta@gmail.com</strong>.<br>Responsável e encarregado pelo tratamento de dados (canal de contato): <strong>Lucas Vilaça Melo Costa</strong>.</p>
 
-</main><footer>Recepta • documento versão 2026-11-17</footer></body></html>
+</main><footer><b>Recepta</b>Documento versão 2026-11-17</footer></body></html>

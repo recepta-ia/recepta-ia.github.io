@@ -1,527 +1,716 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recepta IA | Secretária Inteligente para Consultórios e Clínicas</title>
-    <meta name="description" content="A Secretária com Inteligência Artificial para Consultórios Médicos e Odontológicos. Atendimento no WhatsApp a qualquer hora e agendamento sincronizado com Google Calendar.">
-    <meta name="google-site-verification" content="78kOBJpH9mBxWONDgIX5LMNc2URCy4H3jei81o7NwOI" />
-    
-    <!-- Favicon SVG -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩺</text></svg>">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recepta | Secretária virtual para consultórios no WhatsApp</title>
+  <meta name="description" content="Secretária virtual com inteligência artificial para consultórios médicos e odontológicos. Atende no WhatsApp da clínica a qualquer hora e marca no Google Agenda.">
+  <meta name="google-site-verification" content="78kOBJpH9mBxWONDgIX5LMNc2URCy4H3jei81o7NwOI" />
+  <meta name="theme-color" content="#0B0F0E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M10 1H22A9 9 0 0 1 31 10V22A9 9 0 0 1 22 31H4A3 3 0 0 1 1 28V10A9 9 0 0 1 10 1Z' fill='%231D6B53'/%3E%3Cpath d='M10.2 26V10A2.6 2.6 0 0 1 12.8 7.4H20.4A2.6 2.6 0 0 1 23 10V26' fill='none' stroke='%23E9D2A6' stroke-width='1.7' stroke-linecap='round'/%3E%3Cpath d='M12.6 25.6V9.9L18.4 8.4V26.4Z' fill='%23E9D2A6'/%3E%3C/svg%3E">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- FontAwesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* Recepta: o mesmo sistema visual do painel (dashboard/DESIGN.md, seção 11). Sem bibliotecas.
+       Movimento: só transform e opacity; tudo para no estado final com "reduzir movimento" ou sem JavaScript. */
+    :root {
+      --noite: #0B0F0E; --grafite: #131917; --grafite-2: #0F1513; --borda: #232B28; --linha: rgba(255, 255, 255, .08);
+      --pinho: #1D6B53; --pinho-claro: #24805F; --broto: #8ED9B2; --linho: #EBD3AE; --linho-tinta: #2A2116;
+      --texto: #EEF1F3; --texto-2: #C5CCD3; --apagado: #A3ADB7; --apagado-2: #8C97A1;
+      --barra: rgba(16, 22, 20, .66);
+      --serifa: 'Fraunces', Georgia, serif; --titulo: 'Bricolage Grotesque', system-ui, sans-serif; --corpo: 'Hanken Grotesk', system-ui, sans-serif;
+      --b-l: 22px 22px 22px 6px; --b-m: 14px 14px 14px 4px; --b-s: 10px 10px 10px 3px;
+      --saida: cubic-bezier(.16, 1, .3, 1); --suave: cubic-bezier(.2, .7, .2, 1);
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-padding-top: 96px; }
+    body { margin: 0; background: var(--noite); color: var(--texto-2); font: 16px/1.6 var(--corpo); -webkit-font-smoothing: antialiased; overflow-x: clip; }
+    body::after { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .035;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E"); }
+    a { color: var(--broto); }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--broto); outline-offset: 3px; border-radius: 6px; }
+    .envoltorio { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+    .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#ecfdf5',
-                            100: '#d1fae5',
-                            200: '#a7f3d0',
-                            300: '#6ee7b7',
-                            400: '#34d399',
-                            500: '#10b981', // Verde Esmeralda Principal
-                            600: '#059669',
-                            700: '#047857',
-                            800: '#065f46',
-                            900: '#064e3b',
-                            950: '#022c22'
-                        },
-                        dark: {
-                            base: '#080c14',
-                            surface: '#0f172a',
-                            card: '#131e33',
-                            border: 'rgba(255, 255, 255, 0.08)'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        heading: ['Plus Jakarta Sans', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
+    /* ── marca ── */
+    .marca { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--texto); }
+    .marca svg { width: 32px; height: 32px; flex: none; overflow: visible; }
+    .marca .fresta { opacity: .25; transition: opacity .9s var(--suave); }
+    .marca .clarao { opacity: 0; transition: opacity .9s var(--suave); }
+    html.noite .topo .marca .fresta { opacity: .95; }
+    html.noite .topo .marca .clarao { opacity: .55; }
+    .palavra { font-family: var(--serifa); font-weight: 600; font-size: 23px; letter-spacing: -0.02em; line-height: 1; color: var(--texto); }
+    .palavra .a { color: var(--broto); }
+    .palavra .pingo { display: inline-block; width: .26em; height: .26em; margin-left: .07em; border-radius: 999px 999px 999px 1px; background: var(--broto); }
 
-    <style>
-        body {
-            background-color: #080c14;
-            color: #f1f5f9;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
+    /* ── botões ── */
+    .botao { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 22px; border-radius: var(--b-m);
+      font: 600 15px/1 var(--corpo); text-decoration: none; white-space: nowrap; transition: background-color .18s var(--suave), transform .12s var(--suave); }
+    .botao:active { transform: scale(.97); }
+    .botao-principal { color: #F7F8F9; background: linear-gradient(180deg, var(--pinho-claro), #1A6650);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 10px 26px rgba(29, 107, 83, .35); }
+    .botao-principal:hover { background: linear-gradient(180deg, #2A8E6A, var(--pinho)); }
+    .botao-secundario { color: var(--texto); background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .1); }
+    .botao-secundario:hover { background: rgba(255, 255, 255, .1); }
 
-        h1, h2, h3, h4, h5, h6, .font-heading {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
+    /* ── barra do topo (o único vidro) ── */
+    .topo { position: fixed; top: 12px; left: 12px; right: 12px; z-index: 50; }
+    .topo-barra { max-width: 1180px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 10px 10px 18px;
+      border-radius: 20px 20px 20px 5px; background: var(--barra); border: 1px solid var(--linha); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .07), 0 18px 44px rgba(0, 0, 0, .32);
+      -webkit-backdrop-filter: blur(16px) saturate(150%); backdrop-filter: blur(16px) saturate(150%); }
+    .topo nav { display: flex; align-items: center; gap: 4px; }
+    .topo nav a { color: var(--apagado); text-decoration: none; font-size: 14.5px; font-weight: 500; padding: 10px 12px; border-radius: var(--b-s); }
+    .topo nav a:hover { color: var(--texto); background: rgba(255, 255, 255, .05); }
+    .topo .botao { min-height: 44px; padding: 0 18px; font-size: 14.5px; }
+    #mobileMenuBtn { display: none; width: 44px; height: 44px; border: 1px solid rgba(255, 255, 255, .1); border-radius: var(--b-s); background: rgba(255, 255, 255, .06); color: var(--texto); cursor: pointer; }
+    #mobileMenu { display: none; }
+    #mobileMenu.aberto { display: flex; flex-direction: column; align-items: stretch; gap: 2px; max-width: 1180px; margin: 8px auto 0; padding: 10px; border-radius: var(--b-l);
+      background: rgba(18, 24, 22, .97); border: 1px solid var(--linha); box-shadow: 0 24px 60px rgba(0, 0, 0, .5); }
+    #mobileMenu a { color: var(--texto); text-decoration: none; font-size: 16px; padding: 14px 12px; border-radius: var(--b-s); }
+    #mobileMenu a:hover { background: rgba(255, 255, 255, .05); }
+    #mobileMenu .botao { margin-top: 6px; }
 
-        /* Glassmorphism */
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(16, 185, 129, 0.15);
-        }
+    /* ── herói: o título sobe linha a linha; o horizonte de linho sobe com a rolagem ── */
+    .heroi { position: relative; min-height: 100svh; padding: 160px 0 80px; display: flex; align-items: center; overflow: hidden; }
+    .horizonte { position: absolute; left: 0; right: 0; bottom: -40svh; height: 90svh; pointer-events: none; z-index: -1;
+      transform: translate3d(0, calc(var(--p, 0) * -22svh), 0); will-change: transform; }
+    .horizonte::before { content: ""; position: absolute; left: -20vw; right: -20vw; top: 0; bottom: 0; border-radius: 50% 50% 0 0 / 22svh 22svh 0 0;
+      background: radial-gradient(60% 46% at 50% 0, rgba(235, 211, 174, .30), rgba(29, 107, 83, .22) 42%, rgba(11, 15, 14, 0) 72%); }
+    .horizonte::after { content: ""; position: absolute; left: 6vw; right: 6vw; top: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(235, 211, 174, .55), transparent); }
+    .heroi-grade { display: grid; grid-template-columns: minmax(0, 1fr); align-items: center; flex: 1; }
+    .heroi-grade > div { max-width: 62rem; }
+    html:not(.com-mov) .agenda li:not([data-move]) { background: var(--pinho); border: 1px solid transparent; color: #F7F8F9; }
+    html:not(.com-mov) .agenda li[data-move] { text-decoration: line-through; opacity: .45; }
+    .heroi h1 { margin: 0; font-family: var(--serifa); font-weight: 500; font-size: clamp(52px, 8vw, 112px); line-height: .96; letter-spacing: -0.032em; color: #F7F8F9; }
+    .heroi h1 .linha { display: block; overflow: hidden; padding-bottom: .06em; }
+    .heroi h1 .linha > span { display: inline-block; }
+    .heroi h1 em { font-style: italic; font-weight: 400; color: var(--linho); margin-right: .12em; }
+    .heroi .lead { margin: 30px 0 0; font-size: 19px; line-height: 1.6; color: var(--texto-2); max-width: 36rem; }
+    .heroi .acoes { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+    .heroi .nota { margin: 22px 0 0; font-size: 13.5px; color: var(--apagado-2); max-width: 34rem; }
+    .rolar { position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 12.5px; color: var(--apagado-2); text-decoration: none; }
+    .rolar i { width: 1px; height: 36px; background: linear-gradient(180deg, var(--linho), transparent); }
 
-        .glass-panel-subtle {
-            background: rgba(15, 23, 42, 0.5);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-        }
+    /* a conversa do herói */
+    .conversa { padding: 22px; border-radius: var(--b-l); background: var(--grafite); border: 1px solid var(--borda); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05), 0 40px 90px rgba(0, 0, 0, .5); }
+    .conversa-topo { display: flex; align-items: center; gap: 12px; padding-bottom: 16px; margin-bottom: 18px; border-bottom: 1px solid var(--borda); }
+    .mono { display: inline-grid; place-items: center; flex: none; width: 44px; height: 44px; border-radius: 15px 15px 15px 4px;
+      background: linear-gradient(160deg, #F3E1C3, #E2C596); color: var(--linho-tinta); font-family: var(--serifa); font-weight: 500; font-size: 21px; }
+    .conversa-topo b { display: block; color: var(--texto); font-size: 15px; font-weight: 600; }
+    .conversa-topo div span { font-size: 13px; color: var(--apagado); }
+    .msgs { display: flex; flex-direction: column; gap: 10px; }
+    .msg { max-width: 86%; margin: 0; padding: 11px 15px; font-size: 15px; line-height: 1.45; color: var(--texto); }
+    .msg small { display: block; margin-top: 4px; font-size: 11.5px; color: var(--apagado-2); text-align: right; }
+    .msg small .lido { color: var(--broto); margin-left: 3px; letter-spacing: -2px; }
+    .msg-paciente { align-self: flex-end; background: #233029; border-radius: 18px 18px 4px 18px; }
+    .msg-sec { align-self: flex-start; background: var(--grafite-2); border: 1px solid var(--borda); border-radius: 18px 18px 18px 4px; }
+    .horarios { display: flex; gap: 8px; margin-top: 10px; }
+    .horarios span { padding: 6px 12px; border-radius: 999px 999px 999px 4px; border: 1px solid rgba(142, 217, 178, .3); color: var(--broto); font-weight: 600; font-size: 14px; }
+    .marcado { align-self: flex-start; display: flex; align-items: center; gap: 10px; margin: 4px 0 0; padding: 10px 14px; border-radius: var(--b-m);
+      background: rgba(142, 217, 178, .08); border: 1px solid rgba(142, 217, 178, .22); font-size: 13.5px; color: var(--texto); }
+    .marcado svg { width: 18px; height: 18px; color: var(--broto); flex: none; }
+    .rodape-exemplo { margin: 16px 0 0; font-size: 12.5px; color: var(--apagado-2); }
 
-        /* Glow effects */
-        .glow-emerald {
-            box-shadow: 0 0 50px -10px rgba(16, 185, 129, 0.25);
-        }
+    /* ── a assinatura: um dia (e uma noite) inteiro numa rolagem ── */
+    .dia { position: relative; }
+    .dia-cabeca { padding: 64px 0 24px; }
+    .eixo { margin: 0; font-family: var(--serifa); font-weight: 500; font-size: clamp(36px, 4.6vw, 60px); line-height: 1.04; letter-spacing: -0.028em; color: #F7F8F9; max-width: 16ch; }
+    .eixo-lead { margin: 16px 0 0; font-size: 17.5px; color: var(--texto-2); max-width: 38rem; }
+    .palco { position: relative; }
+    .palco-fixo { position: relative; }
+    .ceu { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+    .ceu-dia { position: absolute; inset: 0; background: radial-gradient(120% 80% at 70% 0, rgba(235, 211, 174, .24), transparent 60%), radial-gradient(60% 60% at 10% 30%, rgba(29, 107, 83, .26), transparent 70%), #131917; }
+    .hora .vira { display: inline-block; height: .9em; overflow: hidden; vertical-align: top; }
+    .hora .vira > span { display: block; line-height: .9em; transform: translate3d(0, -.9em, 0); }
+    .ceu-noite { position: absolute; inset: 0; opacity: 0; background: radial-gradient(60% 50% at 70% 30%, rgba(29, 107, 83, .16), transparent 70%), #070A09; }
+    .cenario { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.1fr) minmax(0, .55fr); gap: 40px; align-items: center; }
 
-        .glow-emerald-sm {
-            box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.3);
-        }
+    .relogio { position: relative; }
+    .hora { font-family: var(--serifa); font-weight: 400; font-size: clamp(72px, 10vw, 152px); line-height: .9; letter-spacing: -0.04em; color: #F7F8F9; font-variant-numeric: lining-nums tabular-nums; }
+    .legenda-hora { margin: 18px 0 0; font-size: 18px; line-height: 1.45; color: var(--texto-2); max-width: 22rem; }
+    .legenda-hora b { color: var(--texto); font-weight: 600; }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #080c14;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #1e293b;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #10b981;
-        }
-    </style>
+    .cenas { list-style: none; margin: 0; padding: 0; display: grid; gap: 28px; }
+    .cenas-caixa { position: relative; grid-column: 1 / 3; }
+    .cena { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 40px; align-items: center; }
+    .resposta { display: grid; justify-items: start; }
+    .resposta > * { grid-area: 1 / 1; }
+    .resposta .msg-sec { max-width: 86%; }
+    .cena .relogio { grid-column: 1; }
+    .cena .tela { grid-column: 2; }
+    .tela { padding: 20px; border-radius: var(--b-l); background: var(--grafite); border: 1px solid var(--borda); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05), 0 30px 70px rgba(0, 0, 0, .45); }
+    .tela .msgs { min-height: 168px; justify-content: flex-end; }
+    .digitando { align-self: flex-start; display: none; gap: 5px; padding: 13px 15px; border-radius: 18px 18px 18px 4px; background: var(--grafite-2); border: 1px solid var(--borda); }
+    .digitando i { width: 7px; height: 7px; border-radius: 999px; background: var(--apagado); }
+
+    .agenda { padding: 18px; border-radius: var(--b-l); background: var(--grafite-2); border: 1px solid var(--borda); }
+    .agenda b { display: block; font-family: var(--titulo); font-weight: 600; font-size: 14px; color: var(--texto); margin-bottom: 12px; }
+    .agenda ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+    .agenda li { display: flex; justify-content: space-between; gap: 8px; padding: 8px 10px; border-radius: 9px 9px 9px 3px; font-size: 13px; color: var(--apagado-2); border: 1px dashed rgba(255, 255, 255, .1); }
+    .agenda li span:last-child { font-variant-numeric: tabular-nums; }
+    .agenda li.feito { background: var(--pinho); border: 1px solid transparent; color: #F7F8F9; }
+    .agenda li.movido { text-decoration: line-through; opacity: .45; }
+    .dia-nota { margin: 0; padding: 20px 0 64px; font-size: 12.5px; color: var(--apagado-2); }
+
+    /* ── o painel, de manhã ── */
+    .secao { padding: 96px 0; position: relative; }
+    .secao-cabeca { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 16px 56px; align-items: end; }
+    .secao-titulo { margin: 0; font-family: var(--serifa); font-weight: 500; font-size: clamp(34px, 4.4vw, 56px); line-height: 1.05; letter-spacing: -0.025em; color: #F7F8F9; max-width: 17ch; }
+    .secao-lead { margin: 0; font-size: 17.5px; color: var(--texto-2); max-width: 40rem; }
+    .painel-mostra { margin-top: 48px; padding: 32px; border-radius: 26px 26px 26px 7px; position: relative; overflow: hidden;
+      background: var(--grafite); border: 1px solid var(--borda); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05), 0 40px 90px rgba(0, 0, 0, .45); }
+    .painel-mostra::before { content: ""; position: absolute; left: -160px; top: -200px; width: 660px; height: 460px; pointer-events: none;
+      background: radial-gradient(closest-side, rgba(235, 211, 174, .18), rgba(29, 107, 83, .12) 55%, transparent); }
+    .painel-mostra > * { position: relative; }
+    .pm-grade { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 32px; }
+    .pm-topo { display: flex; align-items: flex-start; gap: 18px; }
+    .pm-topo .mono { width: 60px; height: 60px; font-size: 28px; border-radius: 20px 20px 20px 5px; }
+    .pm-nome { margin: 0; font-size: 14px; color: var(--apagado); }
+    .pm-nome b { color: var(--texto); font-weight: 600; margin-right: 8px; }
+    .pm-nome span { color: var(--broto); font-weight: 600; font-size: 13px; }
+    .pm-ola { margin: 6px 0 0; font-family: var(--serifa); font-weight: 500; font-size: clamp(38px, 5vw, 56px); line-height: 1; letter-spacing: -0.035em; color: #F7F8F9; }
+    .pm-frase { margin: 10px 0 0; font-family: var(--serifa); font-weight: 500; font-size: clamp(20px, 2.4vw, 26px); line-height: 1.25; color: var(--texto-2); }
+    .pm-frase strong { color: var(--broto); font-weight: 500; }
+    .pm-numeros { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr) minmax(0, 1fr); margin-top: 28px; border-top: 1px solid var(--borda); container-type: inline-size; }
+    .pm-numeros div { padding: 22px 16px 0; text-align: center; min-width: 0; }
+    .pm-numeros div + div { border-left: 1px solid var(--borda); }
+    /* o número acompanha a largura do cartão (cqi), para "R$ 9.840" nunca passar da divisória */
+    .pm-numeros b { display: block; white-space: nowrap; font-family: var(--serifa); font-weight: 500; font-size: 32px; font-size: clamp(24px, 8cqi, 42px); line-height: 1; letter-spacing: -0.03em; color: #F7F8F9; font-variant-numeric: tabular-nums; }
+    .pm-numeros b i { font-style: normal; }
+    .pm-numeros b small { font-size: .5em; letter-spacing: 0; margin-right: .2em; color: var(--texto-2); vertical-align: .55em; }
+    .pm-numeros span { display: block; margin-top: 8px; font-size: 14px; color: var(--apagado); }
+    .pm-hoje { padding: 20px; border-radius: var(--b-l); background: var(--grafite-2); border: 1px solid var(--borda); }
+    .pm-hoje h3 { margin: 0 0 12px; font-family: var(--titulo); font-weight: 600; font-size: 16px; color: var(--texto); }
+    .pm-hoje ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+    .pm-hoje li { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 12px; align-items: center; font-size: 14px; }
+    .pm-hoje li > span:first-child { font-weight: 600; color: var(--texto); font-variant-numeric: tabular-nums; }
+    .pm-hoje li > span:last-child { display: flex; flex-direction: column; padding: 9px 12px; border-radius: 12px 12px 12px 3px; background: var(--grafite); border: 1px solid var(--borda); min-width: 0; }
+    .pm-hoje li b { color: var(--texto); font-weight: 600; }
+    .pm-hoje li small { color: var(--apagado); font-size: 12.5px; }
+    .pm-hoje li.da-noite > span:last-child { border-color: rgba(235, 211, 174, .45); background: rgba(235, 211, 174, .06); }
+    .pm-hoje li.da-noite small { color: var(--linho); }
+    .pm-legenda { margin: 22px 0 0; font-size: 12.5px; color: var(--apagado-2); }
+
+    /* ── como funciona: título parado à esquerda, a linha em broto se preenche ── */
+    .fluxo { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 56px; align-items: start; }
+    .fluxo-fixo { position: sticky; top: 120px; }
+    .passos { list-style: none; margin: 0; padding: 0 0 0 36px; position: relative; display: flex; flex-direction: column; gap: 18px; counter-reset: passo; }
+    .passos::before { content: ""; position: absolute; left: 0; top: 8px; bottom: 8px; width: 2px; border-radius: 2px; background: var(--borda); }
+    .passos::after { content: ""; position: absolute; left: 0; top: 8px; bottom: 8px; width: 2px; border-radius: 2px; background: var(--broto); transform-origin: top; transform: scaleY(var(--p, 1)); }
+    .passos li { counter-increment: passo; position: relative; z-index: 1; /* número do passo fica na frente da linha verde */ padding: 26px 28px; border-radius: var(--b-l); background: var(--grafite); border: 1px solid var(--borda); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05); }
+    .passos li::before { content: counter(passo); position: absolute; left: -48px; top: 26px; width: 26px; height: 26px; display: grid; place-items: center; border-radius: 999px 999px 999px 4px;
+      background: #0B0F0E; border: 1px solid #2A3330; font-family: var(--serifa); font-size: 15px; color: var(--linho); }
+    .passos h3, .cartao h3 { margin: 0; font-family: var(--titulo); font-weight: 600; font-size: 19px; letter-spacing: -0.01em; color: var(--texto); }
+    .passos p, .cartao p { margin: 10px 0 0; font-size: 15.5px; color: var(--apagado); }
+
+    /* ── recursos: mosaico ── */
+    .cartao { padding: 28px; border-radius: var(--b-l); background: var(--grafite); border: 1px solid var(--borda); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05); }
+    .icone { display: block; width: 26px; height: 26px; color: var(--broto); margin-bottom: 18px; }
+    .mosaico { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; margin-top: 48px; }
+    .mosaico .cartao:nth-child(1) { grid-column: span 4; display: flex; flex-direction: column; justify-content: space-between; }
+    .mosaico .cartao:nth-child(1) .grande { margin: 28px 0 0; font-family: var(--serifa); font-weight: 400; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.08; letter-spacing: -0.025em; color: #F7F8F9; max-width: 20ch; }
+    .mosaico .cartao:nth-child(2) { grid-column: span 2; }
+    .mosaico .cartao:nth-child(n+3) { grid-column: span 2; }
+    .aviso-urgencia { margin-top: 14px; padding: 12px 14px; border-radius: var(--b-m); background: rgba(224, 168, 60, .08); border: 1px solid rgba(224, 168, 60, .28); font-size: 14px; color: #F3DDA8; }
+
+    /* ── segurança ── */
+    .fatos { list-style: none; margin: 40px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; }
+    .fatos li { padding: 22px 0; border-top: 1px solid var(--borda); }
+    .fatos b { display: block; font-family: var(--titulo); font-weight: 600; font-size: 18px; color: var(--texto); }
+    .fatos span { display: block; margin-top: 6px; color: var(--apagado); font-size: 15.5px; }
+
+    /* ── documentos ── */
+    .docs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 40px; }
+    .doc { display: flex; flex-direction: column; text-decoration: none; transition: border-color .18s var(--suave), transform .18s var(--suave); }
+    .doc:hover { border-color: rgba(142, 217, 178, .35); transform: translateY(-2px); }
+    .doc .ler { margin-top: 22px; font-weight: 600; color: var(--broto); font-size: 15px; }
+
+    /* ── fim: três palavras acendem em linho com a rolagem ── */
+    .final { padding: 140px 0 80px; }
+    .final h2 { margin: 0; font-family: var(--serifa); font-weight: 500; font-size: clamp(42px, 6.4vw, 88px); line-height: 1.02; letter-spacing: -0.03em; color: #F7F8F9; max-width: 15ch; }
+    .final h2 .acende { color: var(--linho); transition: color .6s var(--suave); }
+    .final .acoes { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+    footer { border-top: 1px solid var(--borda); padding: 40px 0 48px; }
+    .rodape { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px; }
+    .rodape .marca svg { width: 44px; height: 44px; }
+    .rodape .palavra { font-size: clamp(40px, 5vw, 60px); letter-spacing: -0.03em; }
+    .rodape nav { display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 14.5px; }
+    .rodape nav a { color: var(--apagado); text-decoration: none; }
+    .rodape nav a:hover { color: var(--texto); }
+    .rodape p { margin: 18px 0 0; font-size: 13px; color: var(--apagado-2); flex-basis: 40rem; }
+
+    /* ═══ Com movimento (o JavaScript liga html.com-mov; sem ele, tudo acima já aparece pronto) ═══ */
+    @keyframes sobe-linha { from { transform: translate3d(0, 108%, 0); } to { transform: none; } }
+    @keyframes aparece { from { opacity: 0; transform: translate3d(0, 12px, 0); } to { opacity: 1; transform: none; } }
+    @keyframes some { from { opacity: 1; } to { opacity: 0; } }
+    @keyframes ponto { 0%, 60% { opacity: .35; transform: none; } 30% { opacity: 1; transform: translateY(-3px); } }
+    html.com-mov .heroi h1 .linha > span { animation: sobe-linha .9s var(--saida) both; }
+    html.com-mov .heroi h1 .linha:nth-child(2) > span { animation-delay: .09s; }
+    html.com-mov .heroi .lead, html.com-mov .heroi .acoes, html.com-mov .heroi .nota { animation: aparece .7s var(--saida) .35s both; }
+    html.com-mov .heroi .conversa { animation: aparece .8s var(--saida) .5s both; }
+
+    /* revelar ao entrar na tela: uma vez, curto, sem desfoque */
+    html.com-mov [data-revela] { opacity: 0; transform: translate3d(0, 18px, 0); transition: opacity .7s var(--saida), transform .7s var(--saida); }
+    html.com-mov [data-revela].visto { opacity: 1; transform: none; }
+    html.com-mov .painel-mostra[data-revela] { opacity: 1; transform: none; clip-path: inset(0 0 38% 0 round 26px); transition: clip-path 1.1s var(--saida); }
+    html.com-mov .painel-mostra[data-revela].visto { clip-path: inset(0 0 0 0 round 26px); }
+    html.com-mov .final h2 .acende { color: rgba(238, 241, 243, .9); }
+    html.com-mov .final h2 .acende.acesa { color: var(--linho); }
+
+    /* o palco fixo: as quatro cenas ficam empilhadas e a rolagem troca a cena */
+    html.com-mov .palco { height: 400svh; }
+    html.com-mov .palco-fixo { position: sticky; top: 0; height: 100svh; display: flex; align-items: center; overflow: hidden; }
+    html.com-mov .ceu-noite { opacity: var(--noite-p, 0); }
+    html.com-mov .palco-fixo > .cenario { flex: 1; }
+    html.com-mov .cenas { display: block; position: absolute; inset: 0; }
+    html.com-mov .cena { position: absolute; inset: 0; align-content: center; pointer-events: none; }
+    html.com-mov .cena .relogio, html.com-mov .cena .tela { opacity: 0; transition: opacity .45s var(--suave), transform .6s var(--saida); }
+    html.com-mov .cena .relogio { transform: translate3d(0, 40px, 0); }
+    html.com-mov .cena .tela { transform: translate3d(0, 24px, 0); }
+    html.com-mov .cena.ativa { pointer-events: auto; }
+    html.com-mov .cena.ativa .relogio, html.com-mov .cena.ativa .tela { opacity: 1; transform: none; }
+    html.com-mov .cena.passou .relogio { transform: translate3d(0, -40px, 0); }
+    html.com-mov .cenas-caixa { min-height: 380px; }
+    /* dentro da cena ativa: paciente escreve, "digitando...", resposta, visto de lido */
+    html.com-mov .cena .msg-paciente, html.com-mov .cena .msg-sec, html.com-mov .cena .marcado { opacity: 0; }
+    html.com-mov .cena.ativa .msg-paciente { animation: aparece .45s var(--saida) .25s both; }
+    html.com-mov .cena.ativa .digitando { display: flex; animation: aparece .3s var(--saida) .75s both, some .2s linear 1.75s both; }
+    html.com-mov .cena.ativa .digitando i { animation: ponto 1s ease-in-out infinite; }
+    html.com-mov .palco:not(.em-tela) .digitando i { animation-play-state: paused; }
+    html.com-mov .cena.ativa .digitando i:nth-child(2) { animation-delay: .15s; } html.com-mov .cena.ativa .digitando i:nth-child(3) { animation-delay: .3s; }
+    html.com-mov .cena.ativa .msg-sec { animation: aparece .45s var(--saida) 1.85s both; }
+    html.com-mov .cena.ativa .marcado { animation: aparece .45s var(--saida) 2.35s both; }
+    html.com-mov .cena.ativa .msg-paciente.depois { animation: aparece .45s var(--saida) 2.9s both; }
+    html.com-mov .cena.ativa .marcado.depois { animation: aparece .45s var(--saida) 3.5s both; }
+    @keyframes vira { from { transform: none; } to { transform: translate3d(0, -.9em, 0); } }
+    html.com-mov .cena .hora .vira > span { transform: none; }
+    html.com-mov .cena.ativa .hora .vira > span { animation: vira .5s var(--saida) .7s both; }
+    html.com-mov .agenda li[data-a="2"].feito { transition-delay: 3.6s; }
+    html.com-mov .agenda li { transition: background-color .5s var(--suave), color .5s var(--suave), opacity .5s var(--suave), border-color .5s var(--suave); }
+    html.com-mov .dia-cabeca[data-revela] { opacity: 1; transform: none; }
+
+    @media (max-width: 1020px) {
+      .heroi-grade { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+      .cenario, .cena { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+      .agenda { display: none; }
+      .pm-grade, .fluxo { grid-template-columns: minmax(0, 1fr); }
+      .fluxo-fixo { position: static; }
+      .mosaico .cartao:nth-child(n) { grid-column: span 3; }
+      .mosaico .cartao:nth-child(1) { grid-column: span 6; }
+    }
+    @media (max-width: 760px) {
+      .topo nav, .topo-barra > .botao { display: none; }
+      #mobileMenuBtn { display: inline-grid; place-items: center; }
+      .heroi { padding: 128px 0 96px; min-height: 0; }
+      .heroi .lead { font-size: 17.5px; }
+      .heroi .acoes .botao { flex: 1 1 14rem; }
+      .rolar { display: none; }
+      .secao { padding: 72px 0; }
+      .secao-cabeca, .fatos, .docs { grid-template-columns: minmax(0, 1fr); }
+      .cenario, .cena { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+      .cena .relogio, .cena .tela { grid-column: 1; }
+      html.com-mov .palco { height: 300svh; }
+      .cenas-caixa { grid-column: 1; }
+      html.com-mov .cenas-caixa { min-height: 470px; }
+      html.com-mov .cena { align-content: center; padding-top: 40px; }
+      html.com-mov .palco-fixo > .cenario { align-content: center; padding-top: 72px; }
+      /* a agenda vira uma faixa de uma linha embaixo do chat */
+      .agenda { display: block; padding: 10px; }
+      .agenda b { display: none; }
+      .agenda ol { flex-direction: row; gap: 6px; }
+      .agenda li { flex: 1; flex-direction: column; align-items: center; gap: 0; padding: 6px 4px; font-size: 12px; }
+      .hora { font-size: 76px; }
+      .legenda-hora { font-size: 16px; margin-top: 10px; }
+      .mosaico .cartao:nth-child(n) { grid-column: span 6; }
+      .pm-numeros { grid-template-columns: minmax(0, 1fr); }
+      .pm-numeros div, .pm-numeros div + div { padding: 18px 0 0; border-left: 0; text-align: left; }
+      .pm-numeros b { font-size: 34px; }
+      .pm-numeros div + div { border-top: 1px solid var(--borda); margin-top: 18px; }
+      .painel-mostra, .conversa, .cartao, .passos li { padding: 22px; }
+      .passos { padding-left: 30px; }
+      .passos li::before { left: -42px; }
+    }
+    @media (max-width: 420px) { .envoltorio { padding: 0 16px; } .topo { left: 8px; right: 8px; top: 8px; } }
+    @media (prefers-reduced-transparency: reduce) { .topo-barra { background: #121816; -webkit-backdrop-filter: none; backdrop-filter: none; } }
+    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .topo-barra { background: #121816; } }
+    /* navegadores de antes de 2022 (sem "svh"): mesmas medidas em "vh", para o palco do dia não perder a altura */
+    @supports not (height: 1svh) {
+      body { overflow-x: hidden; }
+      .heroi { min-height: 100vh; }
+      .horizonte { bottom: -40vh; height: 90vh; transform: translate3d(0, calc(var(--p, 0) * -22vh), 0); }
+      .horizonte::before { border-radius: 50% 50% 0 0 / 22vh 22vh 0 0; }
+      html.com-mov .palco { height: 400vh; }
+      html.com-mov .palco-fixo { height: 100vh; }
+    }
+    @supports not (height: 1svh) { @media (max-width: 760px) { html.com-mov .palco { height: 300vh; } } }
+  </style>
 </head>
-<body class="selection:bg-brand-500 selection:text-white">
+<body>
 
-    <!-- Ambient Background Light Effects -->
-    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[450px] bg-brand-500/10 blur-[140px] rounded-full"></div>
-        <div class="absolute top-[35%] -left-32 w-[500px] h-[500px] bg-emerald-600/5 blur-[160px] rounded-full"></div>
-        <div class="absolute top-[65%] -right-32 w-[600px] h-[600px] bg-teal-500/5 blur-[160px] rounded-full"></div>
+  <header class="topo">
+    <div class="topo-barra">
+      <a class="marca" href="#inicio" aria-label="Recepta, voltar ao início">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 1H22A9 9 0 0 1 31 10V22A9 9 0 0 1 22 31H4A3 3 0 0 1 1 28V10A9 9 0 0 1 10 1Z" fill="#1D6B53"/><path class="clarao" d="M18.4 26.4 23 25.4 30 30.5 20 31Z" fill="#FFF1D2"/><path class="fresta" d="M18.4 8.4 23 9.6V25.4L18.4 26.4Z" fill="#FFF1D2"/><path d="M10.2 26V10A2.6 2.6 0 0 1 12.8 7.4H20.4A2.6 2.6 0 0 1 23 10V26" fill="none" stroke="#E9D2A6" stroke-width="1.7" stroke-linecap="round"/><path d="M12.6 25.6V9.9L18.4 8.4V26.4Z" fill="#E9D2A6"/><circle cx="16.8" cy="17.6" r=".95" fill="#185A46"/></svg>
+        <span class="palavra">Recept<span class="a">a</span><i class="pingo" aria-hidden="true"></i></span>
+      </a>
+      <nav aria-label="Seções do site">
+        <a href="#um-dia">Um dia com ela</a>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#seguranca">Segurança</a>
+        <a href="privacidade.html">Privacidade</a>
+        <a href="termos.html">Termos</a>
+      </nav>
+      <a class="botao botao-principal" href="https://recepta-ia.duckdns.org" target="_blank" rel="noopener noreferrer">Acessar o painel</a>
+      <button id="mobileMenuBtn" type="button" aria-label="Abrir o menu" aria-expanded="false" aria-controls="mobileMenu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
     </div>
+    <nav id="mobileMenu" aria-label="Menu">
+      <a href="#um-dia" onclick="toggleMobileMenu()">Um dia com ela</a>
+      <a href="#como-funciona" onclick="toggleMobileMenu()">Como funciona</a>
+      <a href="#seguranca" onclick="toggleMobileMenu()">Segurança</a>
+      <a href="privacidade.html">Política de Privacidade</a>
+      <a href="termos.html">Termos de Uso</a>
+      <a class="botao botao-principal" href="https://recepta-ia.duckdns.org" target="_blank" rel="noopener noreferrer">Acessar o painel</a>
+    </nav>
+  </header>
 
-    <!-- Navigation Header -->
-    <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-brand-500/10 backdrop-blur-xl transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Brand Logo -->
-            <a href="#" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center text-white shadow-lg shadow-brand-500/20 group-hover:scale-105 transition-transform duration-200">
-                    <i class="fa-solid fa-headset text-lg"></i>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-xl font-bold font-heading tracking-tight text-white flex items-center gap-1.5">
-                        Recepta <span class="text-xs px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-400 font-semibold border border-brand-500/20">IA</span>
-                    </span>
-                    <span class="text-[10px] text-slate-400 tracking-wider uppercase font-medium">Saúde Inteligente</span>
-                </div>
-            </a>
+  <main id="inicio">
 
-            <!-- Desktop Nav Links -->
-            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-                <a href="#inicio" class="hover:text-brand-400 transition-colors">Início</a>
-                <a href="#funcionalidades" class="hover:text-brand-400 transition-colors">Funcionalidades</a>
-                <a href="#seguranca" class="hover:text-brand-400 transition-colors">Segurança</a>
-                <a href="privacidade.html" class="hover:text-brand-400 transition-colors">Política de Privacidade</a>
-                <a href="termos.html" class="hover:text-brand-400 transition-colors">Termos de Uso</a>
-            </nav>
-
-            <!-- CTA Button -->
-            <div class="hidden md:flex items-center gap-4">
-                <a href="https://recepta-ia.duckdns.org" target="_blank" rel="noopener noreferrer" 
-                   class="relative inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-slate-950 bg-gradient-to-r from-brand-400 to-emerald-400 rounded-xl hover:from-brand-300 hover:to-emerald-300 shadow-md shadow-brand-500/25 hover:shadow-brand-500/40 transition-all duration-200 hover:-translate-y-0.5">
-                    <span>Acessar Plataforma</span>
-                    <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-                </a>
-            </div>
-
-            <!-- Mobile Menu Toggle Button -->
-            <button id="mobileMenuBtn" class="md:hidden text-slate-300 hover:text-white p-2 rounded-lg focus:outline-none" aria-label="Abrir Menu">
-                <i class="fa-solid fa-bars text-xl"></i>
-            </button>
+    <section class="heroi" data-progresso="passa">
+      <div class="horizonte" aria-hidden="true"></div>
+      <div class="envoltorio heroi-grade">
+        <div>
+          <h1><span class="linha"><span>A recepção</span></span><span class="linha"><span>que <em>nunca</em> fecha.</span></span></h1>
+          <p class="lead">A Recepta é a secretária virtual do seu consultório. Atende os pacientes no WhatsApp da clínica a qualquer hora, confere o Google Agenda antes de marcar e chama a sua equipe quando a conversa pede uma pessoa.</p>
+          <div class="acoes">
+            <a class="botao botao-principal" href="https://recepta-ia.duckdns.org" target="_blank" rel="noopener noreferrer">Acessar o painel</a>
+            <a class="botao botao-secundario" href="#um-dia">Ver um dia com ela</a>
+          </div>
+          <p class="nota">Feita para consultórios médicos e odontológicos. É uma assistente virtual com inteligência artificial e diz isso a quem perguntar.</p>
         </div>
+      </div>
+      <a class="rolar" href="#um-dia"><span>Role para ver um dia inteiro</span><i aria-hidden="true"></i></a>
+    </section>
 
-        <!-- Mobile Nav Menu -->
-        <div id="mobileMenu" class="hidden md:hidden glass-panel border-t border-slate-800 px-6 py-5 flex flex-col gap-4 text-sm font-medium">
-            <a href="#inicio" class="text-slate-300 hover:text-brand-400 py-1" onclick="toggleMobileMenu()">Início</a>
-            <a href="#funcionalidades" class="text-slate-300 hover:text-brand-400 py-1" onclick="toggleMobileMenu()">Funcionalidades</a>
-            <a href="#seguranca" class="text-slate-300 hover:text-brand-400 py-1" onclick="toggleMobileMenu()">Segurança</a>
-            <a href="privacidade.html" class="text-slate-300 hover:text-brand-400 py-1">Política de Privacidade</a>
-            <a href="termos.html" class="text-slate-300 hover:text-brand-400 py-1">Termos de Uso</a>
-            <a href="https://recepta-ia.duckdns.org" target="_blank" rel="noopener noreferrer" 
-               class="mt-2 w-full text-center py-2.5 px-4 text-slate-950 font-bold bg-brand-400 rounded-xl hover:bg-brand-300 transition-colors">
-                Acessar Plataforma
-            </a>
+    <!-- A assinatura do site: a rolagem passa um dia e uma noite. Sem JavaScript ou com "reduzir movimento", as quatro cenas aparecem em lista. -->
+    <section class="dia" id="um-dia" aria-labelledby="t-dia">
+      <div class="envoltorio dia-cabeca" data-revela>
+        <h2 class="eixo" id="t-dia">Um dia inteiro de recepção, numa rolagem.</h2>
+        <p class="eixo-lead">O consultório fecha. A conversa continua. Veja o que acontece no WhatsApp da clínica enquanto ninguém está na recepção.</p>
+      </div>
+      <div class="palco" data-progresso="fixo" id="palco">
+        <div class="palco-fixo">
+          <div class="ceu" aria-hidden="true"><div class="ceu-dia"></div><div class="ceu-noite"></div></div>
+          <div class="envoltorio cenario">
+            <div class="cenas-caixa">
+              <ol class="cenas">
+                <li class="cena" data-cena="0">
+                  <div class="relogio"><div class="hora" aria-hidden="true">08:00</div><p class="legenda-hora"><span class="sr">8 da manhã. </span><b>A recepção abre</b> com a agenda já conferida.</p></div>
+                  <div class="tela"><div class="msgs">
+                    <p class="msg msg-paciente">Bom dia. Tem horário para limpeza esta semana?<small>08:00 <span class="lido">✓✓</span></small></p>
+                    <div class="resposta"><span class="digitando" aria-hidden="true"><i></i><i></i><i></i></span><p class="msg msg-sec">Bom dia. Tenho quarta às 09:30 ou quinta às 14:00. Qual fica melhor?<small>08:00</small></p></div>
+                  </div></div>
+                </li>
+                <li class="cena" data-cena="1">
+                  <div class="relogio"><div class="hora" aria-hidden="true">12:30</div><p class="legenda-hora"><span class="sr">Meio-dia e meia. </span><b>A equipe almoça.</b> Ela continua.</p></div>
+                  <div class="tela"><div class="msgs">
+                    <p class="msg msg-paciente">Pode ser quarta às 09:30.<small>12:30 <span class="lido">✓✓</span></small></p>
+                    <div class="resposta"><span class="digitando" aria-hidden="true"><i></i><i></i><i></i></span><p class="msg msg-sec">Combinado. Quarta, 09:30, limpeza dental. Te mando um lembrete um dia antes.<small>12:30</small></p></div>
+                    <p class="marcado"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/></svg>Marcada no Google Agenda.</p>
+                  </div></div>
+                </li>
+                <li class="cena" data-cena="2">
+                  <div class="relogio"><div class="hora" aria-hidden="true">23:4<span class="vira"><span>0</span><span>1</span></span></div><p class="legenda-hora"><span class="sr">23 horas e 41 minutos. </span><b>O consultório fechou.</b> Ela responde.</p></div>
+                  <div class="tela"><div class="msgs">
+                    <p class="msg msg-paciente">Oi, ainda dá pra marcar uma avaliação para amanhã?<small>23:41 <span class="lido">✓✓</span></small></p>
+                    <div class="resposta"><span class="digitando" aria-hidden="true"><i></i><i></i><i></i></span><p class="msg msg-sec">Dá sim. Tenho amanhã às 10:00 ou às 16:15. Qual prefere?<small>23:41</small></p></div>
+                    <p class="msg msg-paciente depois">10h, por favor.<small>23:42 <span class="lido">✓✓</span></small></p>
+                    <p class="marcado depois"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/></svg>Amanhã, 10:00, marcada no Google Agenda.</p>
+                  </div></div>
+                </li>
+                <li class="cena" data-cena="3">
+                  <div class="relogio"><div class="hora" aria-hidden="true">03:10</div><p class="legenda-hora"><span class="sr">3 e 10 da madrugada. </span><b>Remarcado</b> sem acordar ninguém.</p></div>
+                  <div class="tela"><div class="msgs">
+                    <p class="msg msg-paciente">Preciso remarcar a consulta de sexta, surgiu um imprevisto.<small>03:10 <span class="lido">✓✓</span></small></p>
+                    <div class="resposta"><span class="digitando" aria-hidden="true"><i></i><i></i><i></i></span><p class="msg msg-sec">Sem problema. Passei para segunda às 11:00. A Dra. vê a mudança na agenda dela.<small>03:10</small></p></div>
+                    <p class="marcado"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/></svg>Remarcada no Google Agenda.</p>
+                  </div></div>
+                </li>
+              </ol>
+            </div>
+            <aside class="agenda" aria-label="Agenda da semana, exemplo">
+              <b>Agenda da semana</b>
+              <ol>
+                <li data-a="1"><span>Qua</span><span>09:30</span></li>
+                <li data-a="2"><span>Qui</span><span>10:00</span></li>
+                <li data-a="3" data-move="1"><span>Sex</span><span>15:00</span></li>
+                <li data-a="3"><span>Seg</span><span>11:00</span></li>
+              </ol>
+            </aside>
+          </div>
         </div>
-    </header>
+      </div>
+      <p class="envoltorio dia-nota">Conversas ilustrativas, com nomes e horários inventados.</p>
+    </section>
 
-    <!-- Main Content -->
-    <main class="relative z-10 pt-28">
-
-        <!-- HERO SECTION -->
-        <section id="inicio" class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24 lg:pt-24 lg:pb-32">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-                
-                <!-- Left Column: Copy & CTAs -->
-                <div class="lg:col-span-7 flex flex-col items-start text-left">
-                    
-                    <!-- Top Badge -->
-                    <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-300 border border-brand-500/25 mb-6 backdrop-blur-md">
-                        <span class="flex h-2 w-2 relative">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
-                        </span>
-                        <span>Inteligência Artificial Especializada para Consultórios Médicos & Odonto</span>
-                    </div>
-
-                    <!-- Headline -->
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white font-heading tracking-tight leading-[1.15] mb-6">
-                        A Secretária com <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-emerald-300 to-teal-200">Inteligência Artificial</span> que sua clínica merece.
-                    </h1>
-
-                    <!-- Subtitle -->
-                    <p class="text-lg sm:text-xl text-slate-300 font-normal leading-relaxed mb-8 max-w-2xl">
-                        Atendimento humanizado a qualquer hora do dia no WhatsApp da sua clínica, feito por uma assistente virtual com IA. Agendamento conferido no <strong class="text-white font-semibold">Google Agenda</strong> e lembretes automáticos para ajudar a reduzir faltas.
-                    </p>
-
-                    <!-- CTAs -->
-                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto mb-10">
-                        <a href="https://recepta-ia.duckdns.org" target="_blank" rel="noopener noreferrer" 
-                           class="inline-flex items-center justify-center px-7 py-3.5 text-base font-bold text-slate-950 bg-gradient-to-r from-brand-400 to-emerald-400 rounded-xl hover:from-brand-300 hover:to-emerald-300 shadow-xl shadow-brand-500/20 hover:shadow-brand-500/35 transition-all duration-200 hover:-translate-y-0.5 text-center">
-                            <i class="fa-solid fa-rocket mr-2.5"></i>
-                            <span>Acessar Plataforma</span>
-                        </a>
-                        <a href="privacidade.html" 
-                           class="inline-flex items-center justify-center px-6 py-3.5 text-base font-semibold text-slate-300 bg-slate-900/60 hover:bg-slate-800/80 rounded-xl border border-slate-700/60 hover:border-brand-500/40 transition-all duration-200 text-center">
-                            <i class="fa-solid fa-shield-halved mr-2 text-brand-400"></i>
-                            <span>Privacidade e uso dos dados</span>
-                        </a>
-                    </div>
-
-                    <!-- Trust Badges -->
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full pt-4 border-t border-slate-800/80 text-xs text-slate-400">
-                        <div class="flex items-center gap-2">
-                            <i class="fa-brands fa-whatsapp text-brand-400 text-base"></i>
-                            <span>Atendimento no WhatsApp</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <i class="fa-regular fa-calendar-check text-brand-400 text-base"></i>
-                            <span>Google Agenda</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-lock text-brand-400 text-base"></i>
-                            <span>Privacidade e LGPD</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-bolt text-brand-400 text-base"></i>
-                            <span>Respostas em segundos</span>
-                        </div>
-                    </div>
+    <section class="secao" id="painel" aria-labelledby="t-painel">
+      <div class="envoltorio">
+        <div class="secao-cabeca" data-revela>
+          <h2 class="secao-titulo" id="t-painel">De manhã, tudo pronto no painel.</h2>
+          <p class="secao-lead">Você abre o painel e a secretária conta o que fez. A consulta marcada às 23:41 já está no seu dia.</p>
+        </div>
+        <div class="painel-mostra" data-revela role="img" aria-label="Exemplo ilustrativo do painel da Recepta: a secretária diz bom dia, mostra os números do mês e as consultas de hoje">
+          <div class="pm-grade">
+            <div>
+              <div class="pm-topo">
+                <span class="mono" aria-hidden="true">M</span>
+                <div>
+                  <p class="pm-nome"><b>Mariana</b><span>atendendo agora</span></p>
+                  <p class="pm-ola">Bom dia.</p>
+                  <p class="pm-frase">Marquei <strong data-conta="12">12</strong> consultas novas em novembro.</p>
                 </div>
-
-                <!-- Right Column: Interactive UI Showcase Mockup -->
-                <div class="lg:col-span-5 relative">
-                    <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-brand-500/30 to-teal-500/20 blur-xl opacity-75"></div>
-                    
-                    <!-- WhatsApp Simulator Card -->
-                    <div class="relative glass-panel rounded-2xl p-4 sm:p-5 shadow-2xl border border-brand-500/20">
-                        <!-- Chat Header -->
-                        <div class="flex items-center justify-between pb-3.5 mb-4 border-b border-slate-800">
-                            <div class="flex items-center gap-3">
-                                <div class="relative">
-                                    <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center text-white text-lg font-bold shadow-md">
-                                        <i class="fa-solid fa-user-doctor"></i>
-                                    </div>
-                                    <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 border-2 border-slate-900 rounded-full"></span>
-                                </div>
-                                <div>
-                                    <div class="flex items-center gap-1.5">
-                                        <h4 class="text-sm font-bold text-white">Clínica Dr. Silva</h4>
-                                        <i class="fa-solid fa-circle-check text-brand-400 text-xs" title="Verificado"></i>
-                                    </div>
-                                    <p class="text-[11px] text-brand-400 font-medium flex items-center gap-1">
-                                        <i class="fa-solid fa-robot text-[10px]"></i> Assistente virtual (IA) da clínica
-                                    </p>
-                                </div>
-                            </div>
-                            <span class="text-[11px] px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700">Online</span>
-                        </div>
-
-                        <!-- Chat Messages Container -->
-                        <div class="space-y-3.5 text-xs sm:text-sm">
-                            <!-- Patient message -->
-                            <div class="flex items-end justify-end">
-                                <div class="bg-emerald-950/70 text-emerald-100 rounded-2xl rounded-tr-sm px-3.5 py-2.5 max-w-[85%] border border-emerald-800/40 shadow-sm">
-                                    <p>Boa tarde! Gostaria de agendar uma consulta com a Dra. Mariana para esta quinta-feira à tarde.</p>
-                                    <span class="text-[10px] text-emerald-400/80 block text-right mt-1">14:28 <i class="fa-solid fa-check-double text-[9px]"></i></span>
-                                </div>
-                            </div>
-
-                            <!-- Recepta IA message -->
-                            <div class="flex items-start gap-2">
-                                <div class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center text-[10px] mt-1 shrink-0">
-                                    <i class="fa-solid fa-headset"></i>
-                                </div>
-                                <div class="bg-slate-800/90 text-slate-100 rounded-2xl rounded-tl-sm px-3.5 py-2.5 max-w-[88%] border border-slate-700 shadow-sm">
-                                    <p class="mb-1.5">Olá! É um prazer te atender. 😊</p>
-                                    <p class="mb-2">Verifiquei a agenda da Dra. Mariana. Para quinta-feira, temos estes horários:</p>
-                                    <div class="space-y-1 mb-2 font-medium">
-                                        <div class="flex items-center gap-2 p-1.5 rounded-lg bg-slate-900/80 text-brand-300 border border-brand-500/20">
-                                            <i class="fa-regular fa-clock text-xs"></i> Opção 1: <strong>14:30</strong>
-                                        </div>
-                                        <div class="flex items-center gap-2 p-1.5 rounded-lg bg-slate-900/80 text-brand-300 border border-brand-500/20">
-                                            <i class="fa-regular fa-clock text-xs"></i> Opção 2: <strong>16:15</strong>
-                                        </div>
-                                    </div>
-                                    <p class="text-slate-300">Qual desses horários é melhor para você?</p>
-                                    <span class="text-[10px] text-slate-400 block text-right mt-1">14:28</span>
-                                </div>
-                            </div>
-
-                            <!-- Patient choice -->
-                            <div class="flex items-end justify-end">
-                                <div class="bg-emerald-950/70 text-emerald-100 rounded-2xl rounded-tr-sm px-3.5 py-2.5 max-w-[85%] border border-emerald-800/40 shadow-sm">
-                                    <p>O horário das 16:15 fica perfeito!</p>
-                                    <span class="text-[10px] text-emerald-400/80 block text-right mt-1">14:29 <i class="fa-solid fa-check-double text-[9px]"></i></span>
-                                </div>
-                            </div>
-
-                            <!-- Recepta IA confirmation & sync -->
-                            <div class="flex items-start gap-2">
-                                <div class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center text-[10px] mt-1 shrink-0">
-                                    <i class="fa-solid fa-headset"></i>
-                                </div>
-                                <div class="bg-slate-800/90 text-slate-100 rounded-2xl rounded-tl-sm px-3.5 py-2.5 max-w-[90%] border border-brand-500/30 shadow-md">
-                                    <div class="flex items-center gap-1.5 text-brand-400 font-bold mb-1">
-                                        <i class="fa-solid fa-circle-check"></i> Consulta Agendada com Sucesso!
-                                    </div>
-                                    <p class="text-xs text-slate-300 mb-2">Quinta-feira às 16:15 com a <strong>Dra. Mariana</strong>.</p>
-                                    
-                                    <!-- Google Calendar Sync Badge -->
-                                    <div class="p-2 rounded-lg bg-slate-900/90 border border-slate-700 flex items-center justify-between text-[11px]">
-                                        <div class="flex items-center gap-2 text-slate-300">
-                                            <i class="fa-regular fa-calendar-plus text-brand-400 text-sm"></i>
-                                            <span>Sincronizado no Google Agenda</span>
-                                        </div>
-                                        <span class="text-brand-400 font-mono text-[10px]">Instantâneo</span>
-                                    </div>
-                                    <span class="text-[10px] text-slate-400 block text-right mt-1.5">14:29</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card Footer -->
-                        <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
-                            <span><i class="fa-solid fa-shield-halved text-brand-400 mr-1"></i> Conexão segura (HTTPS)</span>
-                            <span class="text-slate-500 font-medium">Exemplo ilustrativo</span>
-                        </div>
-                    </div>
-                </div>
-
+              </div>
+              <div class="pm-numeros">
+                <div><b data-conta="38">38</b><span>consultas na agenda</span></div>
+                <div><b><small>R$</small><i class="valor" data-conta="9840">9.840</i></b><span>previstos em consultas</span></div>
+                <div><b data-conta="9">9</b><span>marcadas com o consultório fechado</span></div>
+              </div>
             </div>
-        </section>
-
-        <!-- VALUE PROPOSITION STATS -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-                <div class="glass-panel-subtle rounded-2xl p-5 text-center">
-                    <span class="block text-3xl sm:text-4xl font-extrabold text-white font-heading text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-emerald-300">Todo dia</span>
-                    <span class="text-xs sm:text-sm text-slate-400 mt-1 block font-medium">Respostas a qualquer hora, sem garantia de funcionamento ininterrupto</span>
-                </div>
-                <div class="glass-panel-subtle rounded-2xl p-5 text-center">
-                    <span class="block text-3xl sm:text-4xl font-extrabold text-white font-heading text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-emerald-300">IA</span>
-                    <span class="text-xs sm:text-sm text-slate-400 mt-1 block font-medium">Assistente virtual no WhatsApp</span>
-                </div>
-                <div class="glass-panel-subtle rounded-2xl p-5 text-center">
-                    <span class="block text-3xl sm:text-4xl font-extrabold text-white font-heading text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-emerald-300">Agenda</span>
-                    <span class="text-xs sm:text-sm text-slate-400 mt-1 block font-medium">Confere o Google Agenda antes de marcar</span>
-                </div>
-                <div class="glass-panel-subtle rounded-2xl p-5 text-center">
-                    <span class="block text-3xl sm:text-4xl font-extrabold text-white font-heading text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-emerald-300">LGPD</span>
-                    <span class="text-xs sm:text-sm text-slate-400 mt-1 block font-medium">Política e contrato de dados</span>
-                </div>
+            <div class="pm-hoje">
+              <h3>Hoje</h3>
+              <ol>
+                <li><span>09:00</span><span><b>Ana Paula Reis</b><small>Limpeza dental</small></span></li>
+                <li class="da-noite"><span>10:00</span><span><b>Avaliação</b><small>marcada por ela às 23:41</small></span></li>
+                <li><span>14:30</span><span><b>Diego Souza</b><small>Restauração</small></span></li>
+              </ol>
             </div>
-        </section>
+          </div>
+          <p class="pm-legenda">O painel do consultório. Exemplo ilustrativo, com números inventados.</p>
+        </div>
+      </div>
+    </section>
 
-        <!-- FEATURES SECTION -->
-        <section id="funcionalidades" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-xs uppercase font-bold tracking-wider text-brand-400 bg-brand-500/10 px-3 py-1 rounded-full border border-brand-500/20">Recursos Exclusivos</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-heading tracking-tight mt-3 mb-4">
-                    Tudo o que sua recepção precisa para operar no piloto automático
-                </h2>
-                <p class="text-slate-400 text-base sm:text-lg">
-                    Pensada para a rotina de consultórios médicos, odontológicos e clínicas multidisciplinares.
-                </p>
+    <section class="secao" id="como-funciona" aria-labelledby="t-como">
+      <div class="envoltorio fluxo">
+        <div class="fluxo-fixo" data-revela>
+          <h2 class="secao-titulo" id="t-como">Como ela trabalha no seu consultório</h2>
+          <p class="secao-lead" style="margin-top:16px">Você conecta o WhatsApp da clínica e o Google Agenda uma vez. Daí em diante, cada conversa segue o mesmo caminho.</p>
+        </div>
+        <ol class="passos" data-progresso="passa">
+          <li data-revela><h3>O paciente escreve</h3><p>No mesmo WhatsApp de sempre, de dia, de noite ou no fim de semana. Ela responde em segundos, com cordialidade e sem menu de números.</p></li>
+          <li data-revela><h3>Ela confere e marca</h3><p>Olha os horários livres no Google Agenda, oferece opções, marca, remarca ou desmarca. Compromissos seus na agenda são respeitados.</p></li>
+          <li data-revela><h3>A equipe entra quando precisa</h3><p>Se ela não souber responder, ou o paciente pedir uma pessoa, a equipe é avisada e continua a conversa pelo mesmo WhatsApp.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="secao" id="recursos" aria-labelledby="t-recursos">
+      <div class="envoltorio">
+        <div class="secao-cabeca" data-revela>
+          <h2 class="secao-titulo" id="t-recursos">O que ela faz pela sua recepção</h2>
+          <p class="secao-lead">Pensada para a rotina de consultórios médicos, odontológicos e clínicas com mais de uma especialidade.</p>
+        </div>
+        <div class="mosaico">
+          <article class="cartao" data-revela>
+            <div>
+              <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5h14a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-5 3V6a1 1 0 0 1 1-1z"/></svg>
+              <h3>Atendimento a qualquer hora, com jeito de gente</h3>
+              <p>Responde como uma secretária experiente: acolhe, explica procedimentos e valores que você cadastrou e conduz até o horário marcado. Funciona todos os dias, sem garantia de funcionamento ininterrupto.</p>
             </div>
+            <p class="grande">Sem menu de números. Sem "digite 1 para agendar".</p>
+          </article>
+          <article class="cartao" data-revela>
+            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="8.5"/></svg>
+            <h3>Lembrete 24 horas antes</h3>
+            <p>O paciente confirma, remarca ou cancela pela própria conversa, o que ajuda a reduzir faltas.</p>
+          </article>
+          <article class="cartao" data-revela>
+            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
+            <h3>Google Agenda de verdade</h3>
+            <p>Integração com a API oficial. Mudou um compromisso no celular? Em poucos instantes ela passa a respeitar.</p>
+          </article>
+          <article class="cartao" data-revela>
+            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8.5" r="3.2"/><path d="M3.5 19c.9-3 3-4.4 5.5-4.4s4.6 1.4 5.5 4.4M16 6.5a3 3 0 0 1 0 5.6M18 14.8c1.4.6 2.3 1.9 2.7 4.2"/></svg>
+            <h3>Sua equipe no comando</h3>
+            <p>Quando a conversa pede uma pessoa, a equipe é avisada e responde pelo mesmo WhatsApp da clínica.</p>
+            <p class="aviso-urgencia">A Recepta não faz diagnóstico nem atende urgências. Em emergência, procure o SAMU (192).</p>
+          </article>
+          <article class="cartao" data-revela>
+            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5 5 6.5v5.2c0 4.2 2.9 7.6 7 8.8 4.1-1.2 7-4.6 7-8.8V6.5z"/><path d="m9 12 2 2 4-4"/></svg>
+            <h3>Privacidade e LGPD</h3>
+            <p>A clínica é a controladora dos dados dos pacientes e a Recepta, a operadora. Política, termos e contrato de tratamento de dados estão publicados.</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                <!-- Card 1 -->
-                <div class="glass-panel rounded-2xl p-6 sm:p-8 hover:border-brand-500/40 transition-all duration-300 hover:-translate-y-1 group">
-                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-400 text-xl mb-6 group-hover:bg-brand-500 group-hover:text-slate-950 transition-colors duration-300">
-                        <i class="fa-solid fa-comments"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white font-heading mb-2.5">Atendimento Humanizado a Qualquer Hora</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Esqueça menus numéricos e respostas robóticas. A Recepta responde como uma secretária sênior, acolhendo pacientes com cordialidade a qualquer hora do dia ou da noite.
-                    </p>
-                </div>
+    <section class="secao" id="seguranca" aria-labelledby="t-seg">
+      <div class="envoltorio">
+        <div class="secao-cabeca" data-revela>
+          <h2 class="secao-titulo" id="t-seg">Privacidade e segurança levadas a sério</h2>
+          <p class="secao-lead">Os dados dos pacientes e da clínica são tratados como confidenciais. Cada clínica enxerga somente os próprios dados, e o que está descrito aqui é o que o sistema faz hoje.</p>
+        </div>
+        <ul class="fatos">
+          <li data-revela><b>Conexão segura (HTTPS)</b><span>O painel e a comunicação com o sistema trafegam criptografados.</span></li>
+          <li data-revela><b>Google OAuth 2.0</b><span>A clínica autoriza e pode revogar quando quiser. Pedimos acesso apenas aos eventos da agenda.</span></li>
+          <li data-revela><b>Sem venda de dados</b><span>Não vendemos dados nem os usamos para publicidade.</span></li>
+          <li data-revela><b>Acesso protegido</b><span>Login com senha armazenada de forma protegida, limite de tentativas e separação entre clínicas.</span></li>
+        </ul>
+      </div>
+    </section>
 
-                <!-- Card 2 -->
-                <div class="glass-panel rounded-2xl p-6 sm:p-8 hover:border-brand-500/40 transition-all duration-300 hover:-translate-y-1 group">
-                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-400 text-xl mb-6 group-hover:bg-brand-500 group-hover:text-slate-950 transition-colors duration-300">
-                        <i class="fa-regular fa-calendar-check"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white font-heading mb-2.5">Agendamento em Tempo Real</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        A IA consulta instantaneamente a disponibilidade de horários, sugere as melhores opções, agenda, remarca ou cancela consultas sem nenhuma demora para o paciente.
-                    </p>
-                </div>
+    <section class="secao" id="privacidade" aria-labelledby="t-docs">
+      <div class="envoltorio">
+        <h2 class="secao-titulo" id="t-docs" data-revela>Os documentos, na íntegra</h2>
+        <div class="docs">
+          <a class="cartao doc" href="privacidade.html" data-revela>
+            <h3>Política de Privacidade</h3>
+            <p>Quais dados tratamos, para quê, com quem compartilhamos (Google, WhatsApp e hospedagem), por quanto tempo guardamos e como exercer seus direitos pela LGPD. Inclui a declaração de Uso Limitado das APIs do Google e as permissões que pedimos ao Google Agenda.</p>
+            <span class="ler">Ler a Política de Privacidade</span>
+          </a>
+          <a class="cartao doc" id="termos" href="termos.html" data-revela>
+            <h3>Termos de Uso e contrato de tratamento de dados</h3>
+            <p>Regras do serviço, pagamento e suspensão, limites da inteligência artificial e o contrato entre a clínica (controladora) e a Recepta (operadora).</p>
+            <span class="ler">Ler os Termos de Uso</span>
+          </a>
+        </div>
+      </div>
+    </section>
 
-                <!-- Card 3 -->
-                <div class="glass-panel rounded-2xl p-6 sm:p-8 hover:border-brand-500/40 transition-all duration-300 hover:-translate-y-1 group">
-                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-400 text-xl mb-6 group-hover:bg-brand-500 group-hover:text-slate-950 transition-colors duration-300">
-                        <i class="fa-solid fa-arrows-rotate"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white font-heading mb-2.5">Sincronização Google Calendar</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Integração com a API oficial do Google Agenda. Se você alterar um compromisso na agenda ou no celular, a IA passa a respeitar o bloqueio em poucos instantes.
-                    </p>
-                </div>
+    <section class="final" aria-labelledby="t-final" data-progresso="passa" id="final">
+      <div class="envoltorio">
+        <h2 id="t-final">Você cuida dos <span class="acende">pacientes</span>. Ela cuida da <span class="acende">recepção</span>, <span class="acende">todo dia</span>.</h2>
+        <div class="acoes">
+          <a class="botao botao-principal" href="https://recepta-ia.duckdns.org" target="_blank" rel="noopener noreferrer">Acessar o painel</a>
+          <a class="botao botao-secundario" href="privacidade.html">Como tratamos os dados</a>
+        </div>
+      </div>
+    </section>
+  </main>
 
-                <!-- Card 4 -->
-                <div class="glass-panel rounded-2xl p-6 sm:p-8 hover:border-brand-500/40 transition-all duration-300 hover:-translate-y-1 group">
-                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-400 text-xl mb-6 group-hover:bg-brand-500 group-hover:text-slate-950 transition-colors duration-300">
-                        <i class="fa-solid fa-headset"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white font-heading mb-2.5">Transbordo Humano Inteligente</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Quando a IA não souber responder, ou o paciente pedir para falar com uma pessoa, a equipe é avisada e continua a conversa pelo mesmo WhatsApp. A IA não faz diagnóstico nem atende urgências: em emergência, procure o SAMU (192).
-                    </p>
-                </div>
+  <footer>
+    <div class="envoltorio rodape">
+      <a class="marca" href="#inicio" aria-label="Recepta, voltar ao início">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 1H22A9 9 0 0 1 31 10V22A9 9 0 0 1 22 31H4A3 3 0 0 1 1 28V10A9 9 0 0 1 10 1Z" fill="#1D6B53"/><path d="M18.4 8.4 23 9.6V25.4L18.4 26.4Z" fill="#FFF1D2" opacity=".35"/><path d="M10.2 26V10A2.6 2.6 0 0 1 12.8 7.4H20.4A2.6 2.6 0 0 1 23 10V26" fill="none" stroke="#E9D2A6" stroke-width="1.7" stroke-linecap="round"/><path d="M12.6 25.6V9.9L18.4 8.4V26.4Z" fill="#E9D2A6"/><circle cx="16.8" cy="17.6" r=".95" fill="#185A46"/></svg>
+        <span class="palavra">Recept<span class="a">a</span><i class="pingo" aria-hidden="true"></i></span>
+      </a>
+      <div>
+        <nav aria-label="Rodapé">
+          <a href="#um-dia">Um dia com ela</a>
+          <a href="#seguranca">Segurança</a>
+          <a href="privacidade.html">Política de Privacidade</a>
+          <a href="termos.html">Termos de Uso</a>
+        </nav>
+        <p>Recepta, a secretária virtual dos consultórios.</p>
+      </div>
+    </div>
+  </footer>
 
-                <!-- Card 5 -->
-                <div class="glass-panel rounded-2xl p-6 sm:p-8 hover:border-brand-500/40 transition-all duration-300 hover:-translate-y-1 group">
-                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-400 text-xl mb-6 group-hover:bg-brand-500 group-hover:text-slate-950 transition-colors duration-300">
-                        <i class="fa-solid fa-bell"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white font-heading mb-2.5">Lembretes & Confirmações</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Lembrete automático 24 horas antes da consulta. O paciente confirma, remarca ou cancela pela própria conversa, o que ajuda a reduzir faltas.
-                    </p>
-                </div>
+  <script>
+    function toggleMobileMenu() {
+      var menu = document.getElementById('mobileMenu');
+      var aberto = menu.classList.toggle('aberto');
+      document.getElementById('mobileMenuBtn').setAttribute('aria-expanded', aberto ? 'true' : 'false');
+    }
+    document.getElementById('mobileMenuBtn').addEventListener('click', toggleMobileMenu);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && document.getElementById('mobileMenu').classList.contains('aberto')) { toggleMobileMenu(); document.getElementById('mobileMenuBtn').focus(); }
+    });
+    document.addEventListener('click', function (e) {
+      var menu = document.getElementById('mobileMenu');
+      if (menu.classList.contains('aberto') && !e.target.closest('.topo')) toggleMobileMenu();
+    });
 
-                <!-- Card 6 -->
-                <div class="glass-panel rounded-2xl p-6 sm:p-8 hover:border-brand-500/40 transition-all duration-300 hover:-translate-y-1 group">
-                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-400 text-xl mb-6 group-hover:bg-brand-500 group-hover:text-slate-950 transition-colors duration-300">
-                        <i class="fa-solid fa-shield-virus"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white font-heading mb-2.5">Privacidade e LGPD</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        A clínica é a controladora dos dados dos pacientes e a Recepta, a operadora. Política de Privacidade, Termos de Uso e contrato de tratamento de dados estão publicados.
-                    </p>
-                </div>
-            </div>
-        </section>
+    // Movimento ligado à rolagem: um ouvinte só, com requestAnimationFrame. Com "reduzir movimento", nada liga e tudo fica no estado final.
+    (function () {
+      var raiz = document.documentElement;
+      var reduz = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduz || !('IntersectionObserver' in window)) return;
+      raiz.classList.add('com-mov');
 
-        <!-- SECURITY & INFRASTRUCTURE SECTION -->
-        <section id="seguranca" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div class="glass-panel rounded-3xl p-8 sm:p-12 border border-brand-500/20 relative overflow-hidden">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                    <div class="lg:col-span-8">
-                        <span class="text-xs uppercase font-bold tracking-wider text-brand-400 bg-brand-500/10 px-3 py-1 rounded-full border border-brand-500/20">Como protegemos os dados</span>
-                        <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-heading mt-3 mb-4">
-                            Privacidade e segurança levadas a sério
-                        </h2>
-                        <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
-                            Os dados dos pacientes e da clínica são tratados como confidenciais. Cada clínica enxerga somente os próprios dados, e o que está descrito aqui é o que o sistema faz hoje.
-                        </p>
+      var io = new IntersectionObserver(function (itens) {
+        itens.forEach(function (it) {
+          if (!it.isIntersecting) return;
+          it.target.classList.add('visto');
+          io.unobserve(it.target);
+          contar(it.target);
+        });
+      }, { rootMargin: '0px 0px -12% 0px' });
+      document.querySelectorAll('[data-revela]').forEach(function (el) { io.observe(el); });
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm text-slate-300">
-                            <div class="flex items-start gap-2.5">
-                                <i class="fa-solid fa-lock text-brand-400 text-base mt-0.5"></i>
-                                <span><strong>Conexão segura (HTTPS):</strong> o painel e a comunicação com o sistema trafegam criptografados.</span>
-                            </div>
-                            <div class="flex items-start gap-2.5">
-                                <i class="fa-solid fa-key text-brand-400 text-base mt-0.5"></i>
-                                <span><strong>Google OAuth 2.0:</strong> a clínica autoriza e pode revogar quando quiser; pedimos acesso apenas aos eventos da agenda.</span>
-                            </div>
-                            <div class="flex items-start gap-2.5">
-                                <i class="fa-solid fa-user-shield text-brand-400 text-base mt-0.5"></i>
-                                <span><strong>Sem venda de dados:</strong> não vendemos dados nem os usamos para publicidade.</span>
-                            </div>
-                            <div class="flex items-start gap-2.5">
-                                <i class="fa-solid fa-server text-brand-400 text-base mt-0.5"></i>
-                                <span><strong>Acesso protegido:</strong> login com senha armazenada de forma protegida, limite de tentativas e separação entre clínicas.</span>
-                            </div>
-                        </div>
-                    </div>
+      // números do painel contam uma vez, quando aparecem
+      function contar(caixa) {
+        caixa.querySelectorAll('[data-conta]').forEach(function (el) {
+          var alvo = Number(el.getAttribute('data-conta')), pre = el.getAttribute('data-prefixo') || '', t0 = performance.now();
+          (function passo(agora) {
+            var p = Math.min(1, (agora - t0) / 900), e = 1 - Math.pow(1 - p, 3);
+            el.textContent = pre + Math.round(alvo * e).toLocaleString('pt-BR');
+            if (p < 1) requestAnimationFrame(passo);
+          })(t0);
+        });
+      }
 
-                    <div class="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-2xl bg-slate-900/80 border border-slate-800 text-center">
-                        <div class="w-16 h-16 rounded-2xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-400 text-3xl mb-3 shadow-inner">
-                            <i class="fa-solid fa-shield-halved"></i>
-                        </div>
-                        <h4 class="text-lg font-bold text-white font-heading">Documentos</h4>
-                        <p class="text-xs text-slate-400 mt-1 mb-4">Leia como tratamos os dados e as regras de uso do serviço.</p>
-                        <a href="privacidade.html" class="text-xs text-brand-400 hover:text-brand-300 font-semibold flex items-center gap-1.5 underline">
-                            <span>Política de Privacidade completa</span>
-                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
+      var palco = document.getElementById('palco');
+      var cenas = palco ? palco.querySelectorAll('.cena') : [];
+      var blocos = palco ? palco.querySelectorAll('.agenda li') : [];
+      var palavras = document.querySelectorAll('#final .acende');
+      var alvos = document.querySelectorAll('[data-progresso]');
+      var cenaAtual = -1, pendente = false;
+      // Leveza: o valor da rolagem vai só para a peça pequena que o usa (não para a seção inteira, que faria o
+      // navegador recalcular o estilo de centenas de elementos a cada quadro) e só é escrito quando muda.
+      var heroi = document.querySelector('.heroi'), horizonte = document.querySelector('.horizonte');
+      var ceuNoite = palco ? palco.querySelector('.ceu-noite') : null;
+      function escrever(el, nome, valor) {
+        if (!el) return;
+        var k = '_rc' + nome;
+        if (el[k] === valor) return;
+        el[k] = valor;
+        el.style.setProperty(nome, valor);
+      }
 
-        <!-- DOCUMENTOS (o texto completo fica em privacidade.html e termos.html) -->
-        <section id="privacidade" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div class="glass-panel rounded-3xl p-6 sm:p-10 border border-brand-500/20 shadow-2xl space-y-4">
-                <h2 class="text-2xl font-bold text-white font-heading">Política de Privacidade</h2>
-                <p class="text-sm text-slate-300 leading-relaxed">
-                    Explica quais dados tratamos, para quê, com quem compartilhamos (Google, WhatsApp e hospedagem), por quanto tempo guardamos e como exercer seus direitos pela LGPD.
-                    Inclui a declaração de <strong>Uso Limitado</strong> das APIs do Google e as permissões que pedimos ao Google Agenda.
-                </p>
-                <a href="privacidade.html" class="inline-flex items-center gap-2 text-sm font-semibold text-brand-400 hover:text-brand-300 underline">Ler a Política de Privacidade completa <i class="fa-solid fa-arrow-right text-xs"></i></a>
-            </div>
-        </section>
-
-        <section id="termos" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-            <div class="glass-panel rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-2xl space-y-4">
-                <h2 class="text-2xl font-bold text-white font-heading">Termos de Uso e contrato de tratamento de dados</h2>
-                <p class="text-sm text-slate-300 leading-relaxed">
-                    Regras do serviço, pagamento e suspensão, limites da inteligência artificial e o contrato entre a clínica (controladora) e a Recepta (operadora).
-                </p>
-                <a href="termos.html" class="inline-flex items-center gap-2 text-sm font-semibold text-brand-400 hover:text-brand-300 underline">Ler os Termos de Uso completos <i class="fa-solid fa-arrow-right text-xs"></i></a>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="relative z-10 border-t border-slate-800 py-8 text-center text-xs text-slate-500 space-x-4">
-        <span>Recepta IA</span>
-        <a href="privacidade.html" class="hover:text-brand-400">Política de Privacidade</a>
-        <a href="termos.html" class="hover:text-brand-400">Termos de Uso</a>
-    </footer>
-
-    <script>
-        function toggleMobileMenu() {
-            document.getElementById('mobileMenu').classList.toggle('hidden');
-        }
-        document.getElementById('mobileMenuBtn').addEventListener('click', toggleMobileMenu);
-    </script>
+      function medir() {
+        pendente = false;
+        var vh = window.innerHeight;
+        alvos.forEach(function (el) {
+          var r = el.getBoundingClientRect(), p;
+          if (el.getAttribute('data-progresso') === 'fixo') p = -r.top / Math.max(1, r.height - vh);
+          else p = (vh - r.top) / (r.height + vh);
+          p = Math.min(1, Math.max(0, p));
+          if (el === heroi) escrever(horizonte, '--p', p.toFixed(3));
+          else if (el.classList.contains('passos')) escrever(el, '--p', p.toFixed(3));
+          if (el === palco) {
+            // a noite chega entre 30% e 55% do palco; a cena das 23:41 (o momento principal) fica com o trecho mais longo
+            escrever(ceuNoite, '--noite-p', Math.min(1, Math.max(0, (p - .3) / .25)).toFixed(3));
+            var c = p < .2 ? 0 : p < .4 ? 1 : p < .78 ? 2 : 3;
+            if (c !== cenaAtual) {
+              cenaAtual = c;
+              cenas.forEach(function (cena, i) { cena.classList.toggle('ativa', i === c); cena.classList.toggle('passou', i < c); });
+              blocos.forEach(function (b) {
+                var a = Number(b.getAttribute('data-a'));
+                if (b.hasAttribute('data-move')) { b.classList.toggle('feito', c >= 0 && c < 3); b.classList.toggle('movido', c >= 3); }
+                else b.classList.toggle('feito', c >= a);
+              });
+            }
+            var emTela = r.bottom > 0 && r.top < vh; // fora da tela, os pontinhos do "digitando" param (poupa bateria)
+            if (emTela !== el.classList.contains('em-tela')) el.classList.toggle('em-tela', emTela);
+            var noite = r.top < vh * .5 && r.bottom > vh * .5 && c >= 2;
+            if (noite !== raiz.classList.contains('noite')) raiz.classList.toggle('noite', noite);
+          }
+          if (el.id === 'final') {
+            var n = Math.floor(Math.min(1, p * 1.6) * (palavras.length + 1));
+            palavras.forEach(function (w, i) { if (w.classList.contains('acesa') !== (i < n)) w.classList.toggle('acesa', i < n); });
+          }
+        });
+      }
+      window.addEventListener('scroll', function () { if (!pendente) { pendente = true; requestAnimationFrame(medir); } }, { passive: true });
+      window.addEventListener('resize', medir);
+      medir();
+    })();
+  </script>
 </body>
 </html>

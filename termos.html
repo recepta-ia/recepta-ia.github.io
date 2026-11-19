@@ -1,34 +1,66 @@
 <!DOCTYPE html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Termos de Uso e Contrato de Tratamento de Dados | Recepta</title>
-<meta name="robots" content="index,follow">
+<meta name="robots" content="index,follow"><meta name="theme-color" content="#0B0F0E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:light dark;--bg:#ffffff;--fg:#1f2937;--mut:#6b7280;--acc:#047857;--card:#f3f4f6;--bd:#e5e7eb}
-@media (prefers-color-scheme:dark){:root{--bg:#0b1220;--fg:#e5e7eb;--mut:#9ca3af;--acc:#34d399;--card:#111c30;--bd:#1f2a44}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-.topo{border-bottom:1px solid var(--bd);padding:14px 16px}.topo div,main{max-width:860px;margin:0 auto}
-.topo a{color:var(--acc);text-decoration:none;font-weight:600;margin-right:18px}main{padding:24px 16px 64px}
-h1{font-size:1.7rem;margin:.2em 0 .1em}h2{font-size:1.15rem;margin:1.8em 0 .4em;color:var(--acc)}
-.meta{color:var(--mut);font-size:.9rem}ul,ol{padding-left:1.2em}li{margin:.35em 0}a{color:var(--acc)}
-.destaque{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px 14px}
-.rolagem{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.92rem}
-th,td{border:1px solid var(--bd);padding:8px 10px;text-align:left;vertical-align:top}th{background:var(--card)}
-code{font-size:.85em;word-break:break-all}footer{color:var(--mut);font-size:.85rem;border-top:1px solid var(--bd);padding:16px;text-align:center}
+:root{color-scheme:dark;--bg:#0B0F0E;--fg:#C5CCD3;--forte:#F7F8F9;--mut:#A3ADB7;--acc:#8ED9B2;--card:#131917;--card2:#0F1513;--bd:#232B28;
+--barra:rgba(16,22,20,.7);--luz:rgba(235,211,174,.08);--serifa:'Fraunces',Georgia,serif;--titulo:'Bricolage Grotesque',system-ui,sans-serif;--corpo:'Hanken Grotesk',system-ui,sans-serif}
+@media (prefers-color-scheme:light){:root{color-scheme:light;--bg:#F5F2EC;--fg:#2E3433;--forte:#111615;--mut:#5A6462;--acc:#1D6B53;--card:#FFFFFF;--card2:#FBF9F5;
+--bd:rgba(17,22,21,.12);--barra:rgba(255,253,249,.82);--luz:rgba(222,186,132,.2)}}
+*{box-sizing:border-box}html{scroll-padding-top:96px}
+body{margin:0;background:var(--bg);color:var(--fg);font:16.5px/1.72 var(--corpo);-webkit-font-smoothing:antialiased;
+background-image:radial-gradient(60rem 30rem at 15% -10%,var(--luz),transparent 60%)}
+a{color:var(--acc)}a:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:4px}
+.topo{position:sticky;top:12px;z-index:5;margin:12px 12px 0}
+.topo div{max-width:860px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;padding:10px 12px;border-radius:18px 18px 18px 5px;
+background:var(--barra);border:1px solid var(--bd);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.topo a{color:var(--mut);text-decoration:none;font-weight:500;font-size:.92rem;padding:8px 10px;border-radius:10px 10px 10px 3px}
+.topo a:hover{color:var(--forte)}
+.topo a.marca{margin-right:auto;color:var(--forte);font-family:var(--serifa);font-weight:600;font-size:1.3rem;letter-spacing:-.02em;padding-left:4px}
+.topo a.marca span{color:var(--acc)}
+main{max-width:860px;margin:0 auto;padding:56px 24px 72px}
+h1{font-family:var(--serifa);font-weight:500;font-size:clamp(2.3rem,5.5vw,3.4rem);line-height:1.04;letter-spacing:-.035em;color:var(--forte);margin:0 0 .35em;max-width:18ch}
+h2{font-family:var(--titulo);font-weight:600;font-size:1.22rem;letter-spacing:-.01em;color:var(--forte);margin:2.4em 0 .5em;padding-top:1.2em;border-top:1px solid var(--bd)}
+h3{font-family:var(--titulo);font-weight:600;font-size:1.05rem;color:var(--forte)}
+strong{color:var(--forte);font-weight:600}
+.meta{color:var(--mut);font-size:.92rem}ul,ol{padding-left:1.25em}li{margin:.4em 0}li::marker{color:var(--acc)}
+p,li{max-width:70ch}
+.destaque{background:var(--card);border:1px solid var(--bd);border-radius:16px 16px 16px 4px;padding:16px 18px}
+.rolagem{overflow-x:auto;border:1px solid var(--bd);border-radius:16px 16px 16px 4px;background:var(--card)}
+table{border-collapse:collapse;min-width:640px;font-size:.92rem}
+th,td{border-bottom:1px solid var(--bd);padding:10px 14px;text-align:left;vertical-align:top}
+th{background:var(--card2);color:var(--forte);font-weight:600}tr:last-child td{border-bottom:0}
+code{font-size:.85em;word-break:break-all}
+footer{max-width:860px;margin:0 auto;padding:28px 24px 48px;border-top:1px solid var(--bd);color:var(--mut);font-size:.88rem}
+footer b{font-family:var(--serifa);font-weight:600;font-size:1.15rem;color:var(--forte);margin-right:10px}
+.topo a.marca{display:inline-flex;align-items:center;gap:9px}.topo a.marca svg{width:28px;height:28px;flex:none}
+.topo .pingo{display:inline-block;width:.26em;height:.26em;margin-left:.06em;border-radius:999px 999px 999px 1px;background:var(--acc)}
+.topo a[aria-current="page"]{color:var(--forte);background:rgba(142,217,178,.1)}
+.sumario{margin:28px 0 8px;padding:18px 20px;border-radius:16px 16px 16px 4px;background:var(--card);border:1px solid var(--bd)}
+.sumario b{display:block;font-family:var(--titulo);font-weight:600;color:var(--forte);margin-bottom:6px}
+.sumario ol{margin:0;padding:0;list-style:none;columns:2 16rem;column-gap:28px}.sumario li{margin:.25em 0;break-inside:avoid}
+.sumario a{text-decoration:none;font-size:.94rem}.sumario a:hover{text-decoration:underline}
+.rolagem{background:linear-gradient(90deg,var(--card) 30%,transparent) left/40px 100% no-repeat local,linear-gradient(270deg,var(--card) 30%,transparent) right/40px 100% no-repeat local,
+radial-gradient(farthest-side at 100% 50%,rgba(0,0,0,.35),transparent) right/14px 100% no-repeat scroll,var(--card)}
+@media (max-width:560px){.topo{position:static;margin:8px 8px 0}.topo div{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding:8px}.topo div::-webkit-scrollbar{display:none}.topo a{white-space:nowrap;font-size:.85rem;padding:8px}
+.topo a.marca svg{width:24px;height:24px}main{padding:36px 18px 56px}.sumario ol{columns:1}}
+@media (prefers-reduced-transparency:reduce){.topo div{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--card)}}
 </style></head>
 <body><header class="topo"><div>
-<a href="index.html">Recepta</a><a href="privacidade.html">Política de Privacidade</a><a href="termos.html">Termos de Uso</a>
+<a class="marca" href="index.html" aria-label="Recepta, página inicial"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 1H22A9 9 0 0 1 31 10V22A9 9 0 0 1 22 31H4A3 3 0 0 1 1 28V10A9 9 0 0 1 10 1Z" fill="#1D6B53"/><path d="M10.2 26V10A2.6 2.6 0 0 1 12.8 7.4H20.4A2.6 2.6 0 0 1 23 10V26" fill="none" stroke="#E9D2A6" stroke-width="1.7" stroke-linecap="round"/><path d="M12.6 25.6V9.9L18.4 8.4V26.4Z" fill="#E9D2A6"/></svg><span style="color:var(--forte)">Recept<span>a</span><i class="pingo" aria-hidden="true"></i></span></a><a href="privacidade.html">Política de Privacidade</a><a href="termos.html" aria-current="page">Termos de Uso</a>
 </div></header>
 <main><h1>Termos de Uso e Contrato de Tratamento de Dados</h1>
 
-<p class="meta">Versão 2026-11-17 • Atualizada em 17 de novembro de 2026</p>
+<p class="meta">Versão 2026-11-17 • Atualizada em 17 de novembro de 2026</p><nav class="sumario" aria-label="Nesta página"><b>Nesta página</b><ol><li><a href="#secao-1">1. O que é o serviço</a></li><li><a href="#secao-2">2. Cadastro e aceite</a></li><li><a href="#secao-3">3. O que a IA faz e o que ela não faz</a></li><li><a href="#secao-4">4. Obrigações da Clínica</a></li><li><a href="#secao-5">5. Assinatura, pagamento e suspensão</a></li><li><a href="#secao-6">6. Disponibilidade e limites do serviço</a></li><li><a href="#secao-7">7. Responsabilidade</a></li><li><a href="#secao-8">8. Propriedade e confidencialidade</a></li><li><a href="#secao-9">9. Duração e encerramento</a></li><li><a href="#secao-10">10. Mudanças nos termos</a></li><li><a href="#secao-11">11. Lei aplicável e foro</a></li><li><a href="#secao-12">12. Contrato de tratamento de dados pessoais (Clínica = controladora; Recepta = operadora)</a></li><li><a href="#secao-13">13. Contato</a></li></ol></nav>
 
-<h2>1. O que é o serviço</h2>
+<h2 id="secao-1">1. O que é o serviço</h2>
 <p>A Recepta é um serviço de secretária virtual com IA para clínicas e consultórios, prestado por <strong>Lucas Vilaça Melo Costa</strong> ("Recepta"). Ele atende pacientes pelo WhatsApp, consulta e grava consultas no Google Agenda da clínica e encaminha à equipe o que não souber responder. Estes termos valem entre a Recepta e a clínica contratante ("Clínica"). Neste documento, "Clínica" abrange qualquer consultório ou outro estabelecimento contratante, e "paciente" abrange os clientes atendidos por ele.</p>
 
-<h2>2. Cadastro e aceite</h2>
+<h2 id="secao-2">2. Cadastro e aceite</h2>
 <p>O acesso ao painel exige conta criada pela Recepta e o aceite destes termos, da <a href="privacidade.html">Política de Privacidade</a> e do contrato de tratamento de dados (item 12). O aceite fica registrado com data, hora, endereço IP e versão do texto. Quem aceita declara ter poderes para obrigar a Clínica. Login e senha são pessoais e de responsabilidade da Clínica.</p>
 
-<h2>3. O que a IA faz e o que ela não faz</h2>
+<h2 id="secao-3">3. O que a IA faz e o que ela não faz</h2>
 <ul>
 <li>A secretária virtual agenda, remarca, cancela, informa horários, endereço e valores <strong>que a Clínica cadastrou</strong>, e lembra as consultas.</li>
 <li>Ela <strong>não faz diagnóstico, não indica tratamento e não substitui</strong> profissional de saúde nem a equipe da Clínica. Pode errar ou interpretar mal uma mensagem.</li>
@@ -36,7 +68,7 @@ code{font-size:.85em;word-break:break-all}footer{color:var(--mut);font-size:.85r
 <li>A Clínica é responsável por revisar o que cadastra (horários, preços, regras) e por acompanhar o atendimento pelo painel.</li>
 </ul>
 
-<h2>4. Obrigações da Clínica</h2>
+<h2 id="secao-4">4. Obrigações da Clínica</h2>
 <ul>
 <li>Ter base legal para tratar os dados dos seus pacientes e informá-los, por conta própria, de que o atendimento é feito com apoio de assistente virtual e de que os dados são tratados conforme a LGPD.</li>
 <li>Receber e responder, como controladora, os pedidos e reclamações dos pacientes sobre os dados deles.</li>
@@ -46,7 +78,7 @@ code{font-size:.85em;word-break:break-all}footer{color:var(--mut);font-size:.85r
 <li>Usar um número de WhatsApp próprio da Clínica, com autorização do titular do número.</li>
 </ul>
 
-<h2>5. Assinatura, pagamento e suspensão</h2>
+<h2 id="secao-5">5. Assinatura, pagamento e suspensão</h2>
 <ul>
 <li>A assinatura é paga por Pix, em ciclo mensal, trimestral, semestral ou anual, nos valores mostrados no painel no momento da contratação.</li>
 <li>A Clínica avisa o pagamento pelo painel (com ou sem comprovante) ou pelo WhatsApp. A Recepta confere e dá a baixa.</li>
@@ -57,7 +89,7 @@ code{font-size:.85em;word-break:break-all}footer{color:var(--mut);font-size:.85r
 <li>Clínicas em teste ou cortesia podem ser isentas de cobrança, por decisão da Recepta.</li>
 </ul>
 
-<h2>6. Disponibilidade e limites do serviço</h2>
+<h2 id="secao-6">6. Disponibilidade e limites do serviço</h2>
 <ul>
 <li>Trabalhamos para manter o serviço no ar, mas <strong>não garantimos funcionamento ininterrupto</strong>. Ele depende de terceiros (WhatsApp, Google, internet, hospedagem), e falhas, limites de uso ou manutenções podem causar indisponibilidade ou atraso.</li>
 <li>A conexão com o WhatsApp é feita por meio de uma ferramenta não oficial (Evolution API). Há risco, fora do nosso controle, de o WhatsApp limitar ou bloquear o número usado. A Clínica reconhece esse risco e deve manter outros canais de contato.</li>
@@ -65,23 +97,23 @@ code{font-size:.85em;word-break:break-all}footer{color:var(--mut);font-size:.85r
 <li>A Recepta pode melhorar, alterar ou descontinuar funções, avisando a Clínica com antecedência razoável quando a mudança for relevante.</li>
 </ul>
 
-<h2>7. Responsabilidade</h2>
+<h2 id="secao-7">7. Responsabilidade</h2>
 <p>Na medida permitida em lei, a Recepta não responde por decisões clínicas ou administrativas tomadas pela Clínica, por perdas decorrentes de indisponibilidade de terceiros, nem por lucros cessantes. Em qualquer caso, a responsabilidade da Recepta limita-se ao valor pago pela Clínica nos últimos 12 meses, ressalvados os casos em que a lei não admita limitação (como dolo ou culpa grave).</p>
 <p>A Clínica, como controladora, responde perante seus pacientes e as autoridades pelas decisões sobre o tratamento dos dados. Se a Recepta for cobrada, condenada ou multada por fato atribuível à Clínica (por exemplo, não ter informado os pacientes, falta de base legal ou instrução irregular), a Clínica reembolsará a Recepta na medida da participação da Clínica no fato, inclusive custas e honorários (LGPD art. 42, § 4º). Os serviços de Google, Meta/WhatsApp e AWS seguem os termos desses fornecedores, e a Recepta não responde por falhas deles, na medida permitida em lei.</p>
 
-<h2>8. Propriedade e confidencialidade</h2>
+<h2 id="secao-8">8. Propriedade e confidencialidade</h2>
 <p>O software, a marca e o conteúdo da Recepta são da Recepta. Os dados da Clínica e dos pacientes continuam sendo da Clínica. Cada parte guarda sigilo das informações confidenciais da outra.</p>
 
-<h2>9. Duração e encerramento</h2>
+<h2 id="secao-9">9. Duração e encerramento</h2>
 <p>O contrato vale por prazo indeterminado. Como o pagamento é por Pix e não há cobrança automática, não é preciso cancelar: o serviço vale pelo período pago e termina no fim dele se não houver novo pagamento. O botão de cancelar do painel existe apenas para a garantia de 7 dias da primeira contratação (item 5). Fora disso, não há reembolso total nem proporcional, salvo se a lei determinar. A Clínica pode, a qualquer momento, pedir o encerramento da conta e a eliminação dos dados pelo contato lucasrecepta@gmail.com. Depois do fim do serviço, os dados da Clínica são apagados em prazo razoável, conforme a Política de Privacidade. A Recepta pode suspender ou encerrar o acesso em caso de falta de pagamento, uso ilegal, risco de segurança ou descumprimento destes termos. Ao término, aplica-se a eliminação ou devolução dos dados prevista na Política de Privacidade. A Recepta pode ceder este contrato à empresa que a suceder (por exemplo, quando abrir CNPJ), mantidas as garantias aqui previstas.</p>
 
-<h2>10. Mudanças nos termos</h2>
+<h2 id="secao-10">10. Mudanças nos termos</h2>
 <p>Podemos atualizar estes termos. Mudanças relevantes são comunicadas no painel, que pode exigir novo aceite. O uso do serviço depois do aviso indica concordância.</p>
 
-<h2>11. Lei aplicável e foro</h2>
+<h2 id="secao-11">11. Lei aplicável e foro</h2>
 <p>Estes termos seguem as leis do Brasil. Fica eleito o foro da comarca de Contagem, Minas Gerais.</p>
 
-<h2>12. Contrato de tratamento de dados pessoais (Clínica = controladora; Recepta = operadora)</h2>
+<h2 id="secao-12">12. Contrato de tratamento de dados pessoais (Clínica = controladora; Recepta = operadora)</h2>
 <ol>
 <li><strong>Objeto.</strong> A Recepta trata dados pessoais de pacientes, inclusive dados de saúde, <em>em nome da Clínica</em> e somente para prestar o serviço descrito nestes termos.</li>
 <li><strong>Instruções.</strong> A Recepta trata os dados conforme as instruções documentadas da Clínica (as configurações do painel e estes termos) e não os usa para fins próprios. O acesso da equipe da Recepta às conversas se limita a suporte, correção de erros e qualidade do serviço prestado à própria Clínica. Se uma instrução violar a lei, a Recepta avisará a Clínica.</li>
@@ -107,7 +139,7 @@ code{font-size:.85em;word-break:break-all}footer{color:var(--mut);font-size:.85r
 </ul></li>
 </ol>
 
-<h2>13. Contato</h2>
+<h2 id="secao-13">13. Contato</h2>
 <p>Dúvidas sobre estes termos ou sobre privacidade: <strong>lucasrecepta@gmail.com</strong>.</p>
 
-</main><footer>Recepta • documento versão 2026-11-17</footer></body></html>
+</main><footer><b>Recepta</b>Documento versão 2026-11-17</footer></body></html>
